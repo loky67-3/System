@@ -7,7 +7,8 @@ import {
   FaRegCalendarAlt, FaUserFriends, FaFolderOpen, FaChartPie, 
   FaQuestionCircle, FaStickyNote, FaMapMarkerAlt, FaEnvelope, 
   FaCheckDouble, FaArrowUp, FaFilePdf, FaFileImage, FaFileAlt, 
-  FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight
+  FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight,
+  FaAlignLeft, FaImage, FaExchangeAlt
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -18,6 +19,7 @@ export default function Dasboard() {
   const [viewMode, setViewMode] = useState('kanban'); // 'kanban' | 'table'
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('info'); // 'info' | 'desc' | 'image' | 'status' | 'delete'
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Menú móvil
   const [selectedTasks, setSelectedTasks] = useState([]); // Para checkboxes
   const [dragOverCol, setDragOverCol] = useState(""); // Estado visual Drag & Drop
@@ -136,7 +138,8 @@ export default function Dasboard() {
   };
 
   // --- Modal Helpers ---
-  const openModal = (task = null) => {
+  const openModal = (task = null, type = 'info') => {
+    setModalType(type);
     if (task) {
       setCurrentTaskId(task.id);
       setFormData(task);
@@ -401,38 +404,54 @@ export default function Dasboard() {
                                             className="kanban-card"
                                             draggable
                                             onDragStart={(e) => onDragStart(e, task.id)}
-                                            onClick={() => openModal(task)}
-                                            style={{border: '1px solid #e5e5ea', boxShadow: '0 2px 5px rgba(0,0,0,0.03)', transition: 'all 0.2s'}}
+                                            style={{border: '1px solid #e5e5ea', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', transition: 'all 0.2s', padding: 0, overflow: 'hidden'}}
                                         >
-                                            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10, alignItems: 'center'}}>
-                                                <span style={{fontSize: 10, fontWeight: 700, textTransform: 'uppercase', background: '#f5f5f7', padding: '4px 8px', borderRadius: 6, color: '#86868b'}}>{task.type}</span>
-                                                <div className="card-actions" style={{gap: 8}}>
-                                                    <button onClick={(e) => { e.stopPropagation(); openModal(task); }} title="Editar" style={{color: '#86868b'}}><FaEdit size={12}/></button>
-                                                    <button onClick={(e) => { e.stopPropagation(); handleDelete(task.id); }} title="Eliminar" style={{color: '#ff3b30'}}><FaTrash size={12}/></button>
+                                            {/* 1. Imagen Completa Arriba */}
+                                            {task.images.length > 0 ? (
+                                                <div style={{width: '100%', height: 140, overflow: 'hidden'}}>
+                                                    <img src={task.images[0]} alt="cover" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
                                                 </div>
-                                            </div>
-                                            
-                                            {task.images.length > 0 && (
-                                                <div style={{marginBottom: 12, borderRadius: 8, overflow: 'hidden', height: 130, border: '1px solid #f0f0f0'}}>
-                                                    <img src={task.images[0]} alt="preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-                                                </div>
+                                            ) : (
+                                                <div style={{width: '100%', height: 6, background: task.status === 'todo' ? '#ff3b30' : task.status === 'inprogress' ? '#007aff' : '#34c759'}}></div>
                                             )}
 
-                                            <h4 style={{fontSize: 15, fontWeight: 600, margin: '0 0 6px 0', color: '#1d1d1f'}}>{task.title}</h4>
-                                            {task.desc && (
-                                                <p style={{fontSize: 13, color: '#86868b', margin: '0 0 12px 0', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
-                                                    {task.desc}
+                                            {/* 2. Contenido */}
+                                            <div style={{padding: 15}}>
+                                                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 8}}>
+                                                    <span style={{fontSize: 10, fontWeight: 700, textTransform: 'uppercase', color: '#86868b'}}>{task.type}</span>
+                                                    <span style={{fontSize: 10, color: '#86868b'}}>{task.schedule}</span>
+                                                </div>
+
+                                                <h4 style={{fontSize: 16, fontWeight: 700, margin: '0 0 6px 0', color: '#1d1d1f'}}>{task.title}</h4>
+                                                
+                                                <p style={{fontSize: 13, color: '#86868b', margin: '0 0 15px 0', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
+                                                    {task.desc || "Sin descripción detallada..."}
                                                 </p>
-                                            )}
-                                            
-                                            <div style={{display: 'flex', alignItems: 'center', gap: 12, borderTop: '1px solid #f5f5f7', paddingTop: 10}}>
-                                                <span style={{fontSize: 11, color: '#86868b', display: 'flex', alignItems: 'center', gap: 4}}>
-                                                    <FaRegCalendarAlt size={10}/> {task.schedule || '--:--'}
-                                                </span>
-                                                <span style={{fontSize: 11, color: '#86868b', display: 'flex', alignItems: 'center', gap: 4}}>
-                                                    <FaMapMarkerAlt size={10}/> {task.city || 'N/A'}
-                                                </span>
+                                                
+                                                {/* 3. Barra de 5 Botones */}
+                                                <div style={{display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #f5f5f7', paddingTop: 12}}>
+                                                    <button onClick={() => openModal(task, 'info')} title="Editar Info" style={{background:'none', border:'none', cursor:'pointer', color:'#86868b', transition:'color 0.2s'}}>
+                                                        <FaEdit size={14} onMouseOver={e => e.currentTarget.style.color = '#007aff'} onMouseOut={e => e.currentTarget.style.color = '#86868b'} />
+                                                    </button>
+                                                    
+                                                    <button onClick={() => openModal(task, 'desc')} title="Descripción" style={{background:'none', border:'none', cursor:'pointer', color:'#86868b', transition:'color 0.2s'}}>
+                                                        <FaAlignLeft size={14} onMouseOver={e => e.currentTarget.style.color = '#007aff'} onMouseOut={e => e.currentTarget.style.color = '#86868b'} />
+                                                    </button>
+                                                    
+                                                    <button onClick={() => openModal(task, 'image')} title="Galería" style={{background:'none', border:'none', cursor:'pointer', color:'#86868b', transition:'color 0.2s'}}>
+                                                        <FaImage size={14} onMouseOver={e => e.currentTarget.style.color = '#007aff'} onMouseOut={e => e.currentTarget.style.color = '#86868b'} />
+                                                    </button>
+                                                    
+                                                    <button onClick={() => openModal(task, 'status')} title="Mover" style={{background:'none', border:'none', cursor:'pointer', color:'#86868b', transition:'color 0.2s'}}>
+                                                        <FaExchangeAlt size={14} onMouseOver={e => e.currentTarget.style.color = '#007aff'} onMouseOut={e => e.currentTarget.style.color = '#86868b'} />
+                                                    </button>
+                                                    
+                                                    <button onClick={() => openModal(task, 'delete')} title="Eliminar" style={{background:'none', border:'none', cursor:'pointer', color:'#86868b', transition:'color 0.2s'}}>
+                                                        <FaTrash size={14} onMouseOver={e => e.currentTarget.style.color = '#ff3b30'} onMouseOut={e => e.currentTarget.style.color = '#86868b'} />
+                                                    </button>
+                                                </div>
                                             </div>
+                                           
                                         </div>
                                     ))}
                                     
@@ -745,22 +764,30 @@ export default function Dasboard() {
       {/* 4. MODAL CRUD COMPLEJO */}
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content-large" style={{maxWidth: 700}}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '1px solid #e5e5ea'}}>
+          <div className={modalType === 'delete' ? "modal-content" : "modal-content-compact"}>
+            
+            {/* Header del Modal */}
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
                 <div>
-                    <h2 style={{fontSize: 24, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>{currentTaskId ? 'Editar Nota' : 'Nueva Nota'}</h2>
-                    <p style={{margin: '5px 0 0', color: '#86868b', fontSize: 14}}>Gestiona la información de tu tarea.</p>
+                    <h2 style={{fontSize: 20, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>
+                        {modalType === 'info' && 'Editar Información'}
+                        {modalType === 'desc' && 'Editar Descripción'}
+                        {modalType === 'image' && 'Galería de Imágenes'}
+                        {modalType === 'status' && 'Cambiar Estado'}
+                        {modalType === 'delete' && '¿Eliminar Nota?'}
+                    </h2>
                 </div>
                 <button onClick={closeModal} style={{background:'none', border:'none', cursor:'pointer', color:'#86868b'}}><FaTimes size={20}/></button>
             </div>
             
             <form onSubmit={handleSubmit}>
-                <div className="form-grid" style={{gap: 25}}>
-                    {/* Sección 1: Información Principal */}
-                    <div className="form-full">
-                        <label className="apple-label">Nombre de Nota</label>
-                        <input className="apple-field" style={{fontSize: 18, fontWeight: 500}} value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} placeholder="Ej: Proyecto X" autoFocus />
-                    </div>
+                {/* --- 1. MODAL INFO --- */}
+                {modalType === 'info' && (
+                   <div style={{display:'flex', flexDirection:'column', gap: 15}}>
+                       <div>
+                           <label className="apple-label">Título</label>
+                           <input className="apple-field" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} autoFocus />
+                       </div>
                     <div>
                         <label className="apple-label">Categoría</label>
                         <select className="apple-field" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})}>
@@ -771,55 +798,56 @@ export default function Dasboard() {
                             <option>Urgente</option>
                         </select>
                     </div>
+                       <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap: 15}}>
+                           <div>
+                               <label className="apple-label">Horario</label>
+                               <input className="apple-field" type="time" value={formData.schedule} onChange={e => setFormData({...formData, schedule: e.target.value})} />
+                           </div>
+                           <div>
+                               <label className="apple-label">Ciudad</label>
+                               <input className="apple-field" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} />
+                           </div>
+                       </div>
+                   </div>
+                )}
 
-                    <div>
-                        <label className="apple-label">Horario Límite</label>
-                        <input className="apple-field" type="time" value={formData.schedule} onChange={e => setFormData({...formData, schedule: e.target.value})} />
-                    </div>
-
-                    {/* Sección 2: Detalles y Contacto */}
-                    <div className="form-full" style={{borderTop: '1px solid #f5f5f7', paddingTop: 20, marginTop: 5}}>
-                        <h4 style={{fontSize: 14, fontWeight: 600, color: '#1d1d1f', marginBottom: 15}}>Detalles Adicionales</h4>
-                    </div>
-
-                    <div>
-                        <label className="apple-label">Email Contacto</label>
-                        <input className="apple-field" type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="contacto@mail.com"/>
-                    </div>
-
-                    <div>
-                        <label className="apple-label">Ubicación (Ciudad/País)</label>
-                        <input className="apple-field" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} placeholder="Ej: Madrid, España"/>
-                    </div>
-                    
-                    <div className="form-full">
+                {/* --- 2. MODAL DESCRIPCIÓN --- */}
+                {modalType === 'desc' && (
+                   <div>
                         <label className="apple-label">Descripción</label>
-                        <textarea className="apple-field" rows="4" value={formData.desc} onChange={e => setFormData({...formData, desc: e.target.value})} placeholder="Describe los detalles..." style={{resize:'vertical'}}></textarea>
-                    </div>
+                        <textarea className="apple-field" rows="8" value={formData.desc} onChange={e => setFormData({...formData, desc: e.target.value})} placeholder="Escribe aquí los detalles..." style={{resize:'none'}} autoFocus></textarea>
+                   </div>
+                )}
 
-                    <div className="form-full">
+                {/* --- 3. MODAL ESTADO (STATUS) --- */}
+                {modalType === 'status' && (
+                    <div>
                          <label className="apple-label">Estado de la Tarea</label>
-                         <div style={{display: 'flex', gap: 10, background: '#f5f5f7', padding: 5, borderRadius: 12}}>
+                         <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
                              {['todo', 'inprogress', 'done'].map(st => (
                                  <div 
                                     key={st}
                                     onClick={() => setFormData({...formData, status: st})}
                                     style={{
-                                        flex: 1, textAlign: 'center', padding: '10px 0', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 500,
+                                        padding: '15px', borderRadius: 12, cursor: 'pointer', fontSize: 14, fontWeight: 600,
+                                        border: formData.status === st ? '2px solid #007aff' : '1px solid #e5e5ea',
                                         background: formData.status === st ? 'white' : 'transparent',
                                         color: formData.status === st ? '#1d1d1f' : '#86868b',
-                                        boxShadow: formData.status === st ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
+                                        display: 'flex', alignItems: 'center', gap: 10,
                                         transition: 'all 0.2s'
                                     }}
                                  >
-                                     {st === 'todo' ? 'Por Hacer' : st === 'inprogress' ? 'En Progreso' : 'Completado'}
+                                     <div style={{width: 12, height: 12, borderRadius: '50%', background: st === 'todo' ? '#ff3b30' : st === 'inprogress' ? '#007aff' : '#34c759'}}></div>
+                                     {st === 'todo' ? 'Por Hacer (To Do)' : st === 'inprogress' ? 'En Progreso (Doing)' : 'Completado (Done)'}
                                  </div>
                              ))}
                          </div>
                     </div>
+                )}
 
-                    {/* Sección 3: Multimedia */}
-                    <div className="form-full">
+                {/* --- 4. MODAL GALERÍA (IMAGES) --- */}
+                {modalType === 'image' && (
+                    <div>
                         <label className="apple-label">Galería de Imágenes</label>
                         <div style={{display: 'flex', gap: 10, marginBottom: 10}}>
                             <input 
@@ -827,13 +855,14 @@ export default function Dasboard() {
                                 placeholder="Pegar URL de imagen..." 
                                 value={tempImageUrl} 
                                 onChange={e => setTempImageUrl(e.target.value)}
+                                autoFocus
                             />
                             <button type="button" onClick={handleAddImage} className="auth-button" style={{width: 100, marginTop: 0}}>
                                 <FaPlus />
                             </button>
                         </div>
                         
-                        <div className="image-gallery-preview">
+                        <div className="image-gallery-preview" style={{maxHeight: 200, overflowY: 'auto'}}>
                                 {formData.images.length === 0 && <span style={{fontSize: 13, color: '#aaa', padding: 10}}>No hay imágenes adjuntas.</span>}
                                 {formData.images.map((img, idx) => (
                                     <div key={idx} className="gallery-thumb-container">
@@ -843,16 +872,39 @@ export default function Dasboard() {
                                         </button>
                                     </div>
                                 ))}
-                            </div>
+                        </div>
                     </div>
-                </div>
+                )}
 
-                <div style={{display: 'flex', gap: 15, justifyContent: 'flex-end', marginTop: 40, paddingTop: 20, borderTop: '1px solid #e5e5ea'}}>
-                    <button type="button" onClick={closeModal} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', width: 'auto', padding: '0 25px', boxShadow:'none', border: '1px solid #e5e5ea'}}>Cancelar</button>
-                    <button type="submit" className="auth-button" style={{width: 'auto', padding: '0 35px', background: '#007aff'}}>
-                        {currentTaskId ? 'Guardar Cambios' : 'Crear Nota'}
-                    </button>
-                </div>
+                {/* --- 5. MODAL ELIMINAR (DELETE) --- */}
+                {modalType === 'delete' && (
+                    <div style={{textAlign: 'center'}}>
+                        <FaTrash size={40} color="#ff3b30" style={{marginBottom: 15}} />
+                        <p style={{fontSize: 16, color: '#1d1d1f', marginBottom: 20}}>
+                            ¿Estás seguro de que quieres eliminar esta nota? Esta acción no se puede deshacer.
+                        </p>
+                        <div style={{display: 'flex', gap: 10, justifyContent: 'center'}}>
+                            <button type="button" onClick={closeModal} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', boxShadow:'none'}}>Cancelar</button>
+                            <button type="button" onClick={() => { handleDelete(currentTaskId); closeModal(); }} className="auth-button" style={{background: '#ff3b30'}}>Eliminar</button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Footer del Modal (Botón Guardar - excepto en Delete) */}
+                {modalType !== 'delete' && (
+                    <div style={{display: 'flex', gap: 15, justifyContent: 'flex-end', marginTop: 30, paddingTop: 20, borderTop: '1px solid #e5e5ea'}}>
+                        <button type="button" onClick={closeModal} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', width: 'auto', padding: '0 20px', boxShadow:'none', height: 40, fontSize: 14}}>Cancelar</button>
+                        <button type="submit" className="auth-button" style={{width: 'auto', padding: '0 25px', background: '#007aff', height: 40, fontSize: 14}}>
+                            Guardar
+                        </button>
+                    </div>
+                )}
+                
+                {modalType === 'delete' && (
+                   /* El botón de eliminar se maneja arriba en la sección delete */
+                   null
+                )}
+                
             </form>
           </div>
         </div>
