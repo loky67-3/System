@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
-  FaThLarge, FaList, FaCog, FaSignOutAlt, 
+  FaThLarge, FaList, FaCog, FaSignOutAlt, FaBars, FaTimes,
   FaPlus, FaTrash, FaEdit, FaSearch, FaBell,
   FaRegCalendarAlt, FaUserFriends, FaFolderOpen, FaChartPie, 
   FaQuestionCircle, FaStickyNote, FaMapMarkerAlt, FaEnvelope, 
   FaCheckDouble, FaArrowUp, FaFilePdf, FaFileImage, FaFileAlt, 
-  FaCloudDownloadAlt, FaToggleOn, FaToggleOff
+  FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -18,8 +18,10 @@ export default function Dasboard() {
   const [viewMode, setViewMode] = useState('kanban'); // 'kanban' | 'table'
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Menú móvil
   const [selectedTasks, setSelectedTasks] = useState([]); // Para checkboxes
   const [dragOverCol, setDragOverCol] = useState(""); // Estado visual Drag & Drop
+  const [currentDate, setCurrentDate] = useState(new Date()); // Estado del Calendario
   
   // --- Estado de Datos (Simulando Base de Datos Compleja) ---
   const [tasks, setTasks] = useState([
@@ -175,14 +177,43 @@ export default function Dasboard() {
     toast.success(`Movido a ${newStatus === 'todo' ? 'Por Hacer' : newStatus === 'inprogress' ? 'En Progreso' : 'Completado'}`);
   };
 
+  // --- Lógica del Calendario ---
+  const getDaysInMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const getFirstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const changeMonth = (offset) => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1));
+  };
+
+  const monthNames = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
+  const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+
   // --- Renderizado de Componentes ---
 
   return (
     <div className="dashboard-layout">
       
+      {/* Overlay para móvil cuando el menú está abierto */}
+      {isSidebarOpen && <div className="db-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
+
       {/* 1. SIDEBAR PRO */}
-      <aside className="db-sidebar">
-        <div className="db-logo">
+      <aside className={`db-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <div className="db-header-mobile">
+             <div className="db-logo"><FaCheckDouble size={22} /> System24</div>
+             <button className="db-close-btn" onClick={() => setIsSidebarOpen(false)}><FaTimes /></button>
+        </div>
+
+        <div className="db-logo desktop-only-logo">
           <FaCheckDouble size={26} /> System24
         </div>
         
@@ -192,7 +223,7 @@ export default function Dasboard() {
             <div 
               key={item.id}
               className={`db-nav-item ${activeSidebar === item.id ? 'active' : ''}`} 
-              onClick={() => setActiveSidebar(item.id)}
+              onClick={() => { setActiveSidebar(item.id); setIsSidebarOpen(false); }}
             >
               {item.icon} {item.label}
             </div>
@@ -208,61 +239,63 @@ export default function Dasboard() {
       <main className="db-content">
         
         {/* Top Header */}
-        <header className="db-header">
-          <div className="db-welcome">
-            <h1>Panel de Control</h1>
-            <p>Gestiona tus tareas y notas con estilo.</p>
-          </div>
-          
-          <div style={{display: 'flex', gap: 20, alignItems: 'center'}}>
-            <div style={{position: 'relative'}}>
-                <FaSearch style={{position: 'absolute', left: 15, top: 12, color: '#aaa'}} />
-                <input 
-                    type="text" 
-                    className="apple-search" 
-                    placeholder="Buscar por nombre, ciudad..." 
-                    style={{paddingLeft: 40, width: 250, border: 'none', background: 'white', borderRadius: 20, height: 40}}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
+        <header className="db-header" style={{marginBottom: 10, paddingBottom: 10, borderBottom: '1px solid #e5e5ea'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
+            <button className="db-mobile-toggle" onClick={() => setIsSidebarOpen(true)} style={{marginRight: 5}}>
+                <FaBars size={18} color="#1d1d1f" />
+            </button>
+            <div className="db-welcome">
+                <h1 style={{fontSize: 20, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>Panel</h1>
             </div>
-            <div className="db-profile">
-                <FaBell color="#555" />
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="User" style={{width: 32, height: 32, borderRadius: '50%'}} />
-                <span style={{fontSize: 14, fontWeight: 500}}>Carlos</span>
-            </div>
-          </div>
-        </header>
 
-        {/* Action Toolbar */}
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20}}>
-            <div style={{display: 'flex', background: '#e0e0e0', padding: 4, borderRadius: 10}}>
+            {/* View Switcher Integrated */}
+            <div style={{display: 'flex', background: '#e5e5ea', padding: 2, borderRadius: 8, marginLeft: 10}}>
                 <button 
                     onClick={() => setViewMode('kanban')}
                     style={{
                         background: viewMode === 'kanban' ? 'white' : 'transparent', 
-                        border: 'none', padding: '6px 12px', borderRadius: 8, cursor: 'pointer',
-                        boxShadow: viewMode === 'kanban' ? '0 2px 5px rgba(0,0,0,0.1)' : 'none'
+                        border: 'none', padding: '4px 8px', borderRadius: 6, cursor: 'pointer',
+                        boxShadow: viewMode === 'kanban' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex'
                     }}
                 >
-                    <FaThLarge /> Tablero
+                    <FaThLarge size={12} />
                 </button>
                 <button 
                     onClick={() => setViewMode('table')}
                     style={{
                         background: viewMode === 'table' ? 'white' : 'transparent', 
-                        border: 'none', padding: '6px 12px', borderRadius: 8, cursor: 'pointer',
-                        boxShadow: viewMode === 'table' ? '0 2px 5px rgba(0,0,0,0.1)' : 'none'
+                        border: 'none', padding: '4px 8px', borderRadius: 6, cursor: 'pointer',
+                        boxShadow: viewMode === 'table' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex'
                     }}
                 >
-                    <FaList /> Lista
+                    <FaList size={12} />
                 </button>
             </div>
+          </div>
+          
+          <div style={{display: 'flex', gap: 10, alignItems: 'center'}}>
+            <div className="db-search-container" style={{position: 'relative'}}>
+                <FaSearch style={{position: 'absolute', left: 10, top: 9, color: '#86868b', fontSize: 12}} />
+                <input 
+                    type="text" 
+                    className="apple-search" 
+                    placeholder="Buscar..." 
+                    style={{paddingLeft: 30, width: 160, border: '1px solid #d2d2d7', background: '#fff', borderRadius: 8, height: 32, fontSize: 13}}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
             
-            <button className="auth-button" style={{width: 'auto', padding: '0 30px', height: 44}} onClick={() => openModal()}>
-                <FaPlus style={{marginRight: 8}}/> Nueva Nota
+            <button className="auth-button" style={{width: 'auto', padding: '0 12px', height: 32, fontSize: 12, marginTop: 0}} onClick={() => openModal()}>
+                <FaPlus style={{marginRight: 4}}/> Crear
             </button>
-        </div>
+
+            <div className="db-profile" style={{padding: '4px 8px', gap: 8, height: 32}}>
+                <FaBell color="#555" size={14} />
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="User" style={{width: 24, height: 24, borderRadius: '50%'}} />
+            </div>
+          </div>
+        </header>
 
         {/* 3. CONTENT VIEWS (SWITCHER) */}
         
@@ -271,11 +304,17 @@ export default function Dasboard() {
            <div style={{marginTop: 20, animation: 'fadeIn 0.5s ease'}}>
               {/* Widgets de Estadísticas */}
               <div className="dashboard-grid">
-                  <div className="stat-card">
-                      <div className="stat-icon-wrapper" style={{background: '#eaf4ff', color: '#007aff'}}><FaStickyNote /></div>
-                      <div className="stat-value">{tasks.length}</div>
-                      <div className="stat-label">Total Notas</div>
+                  <div className="stat-card modern-widget" style={{backgroundImage: 'linear-gradient(135deg, #007aff 0%, #005ecb 100%)', color: 'white'}}>
+                      <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                          <div className="stat-icon-wrapper" style={{background: 'rgba(255,255,255,0.2)', color: '#fff'}}><FaStickyNote /></div>
+                          <span style={{fontSize: 12, opacity: 0.8}}>Actualizado hoy</span>
+                      </div>
+                      <div style={{marginTop: 15}}>
+                        <div className="stat-value" style={{color: 'white'}}>{tasks.length}</div>
+                        <div className="stat-label" style={{color: 'rgba(255,255,255,0.9)'}}>Notas Activas</div>
+                      </div>
                   </div>
+
                   <div className="stat-card">
                       <div className="stat-icon-wrapper" style={{background: '#fff4e5', color: '#ff9500'}}><FaList /></div>
                       <div className="stat-value">{tasks.filter(t => t.status === 'todo').length}</div>
@@ -286,10 +325,13 @@ export default function Dasboard() {
                       <div className="stat-value">{tasks.filter(t => t.status === 'done').length}</div>
                       <div className="stat-label">Completadas</div>
                   </div>
-                  <div className="stat-card">
-                      <div className="stat-icon-wrapper" style={{background: '#ffebeb', color: '#ff3b30'}}><FaArrowUp /></div>
-                      <div className="stat-value">+24%</div>
-                      <div className="stat-label">Productividad</div>
+                  <div className="stat-card modern-widget" style={{backgroundImage: 'url(https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=400&q=80)', backgroundSize: 'cover'}}>
+                      <div style={{background: 'rgba(0,0,0,0.5)', position:'absolute', inset:0, borderRadius: 20}}></div>
+                      <div style={{position: 'relative', zIndex: 1, color: 'white'}}>
+                        <div className="stat-icon-wrapper" style={{background: 'rgba(255,255,255,0.2)', color: '#fff'}}><FaArrowUp /></div>
+                        <div className="stat-value" style={{color: 'white'}}>+24%</div>
+                        <div className="stat-label" style={{color: 'rgba(255,255,255,0.9)'}}>Productividad</div>
+                      </div>
                   </div>
               </div>
 
@@ -338,41 +380,74 @@ export default function Dasboard() {
                                 onDragEnter={(e) => onDragEnter(e, status)}
                                 onDrop={(e) => onDrop(e, status)}
                             >
-                                <h3 style={{
-                                    color: status === 'todo' ? '#ff3b30' : status === 'inprogress' ? '#007aff' : '#34c759',
-                                    display: 'flex', justifyContent: 'space-between'
-                                }}>
-                                    {status === 'todo' ? 'POR HACER' : status === 'inprogress' ? 'EN PROGRESO' : 'COMPLETADO'}
-                                    <span style={{background: 'rgba(0,0,0,0.05)', padding: '2px 8px', borderRadius: 10}}>{filteredTasks.filter(t => t.status === status).length}</span>
-                                </h3>
+                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15, padding: '0 5px'}}>
+                                    <h3 style={{
+                                        fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5,
+                                        color: status === 'todo' ? '#ff3b30' : status === 'inprogress' ? '#007aff' : '#34c759',
+                                        display: 'flex', alignItems: 'center', gap: 8
+                                    }}>
+                                        <span style={{width: 8, height: 8, borderRadius: '50%', background: status === 'todo' ? '#ff3b30' : status === 'inprogress' ? '#007aff' : '#34c759'}}></span>
+                                        {status === 'todo' ? 'Por Hacer' : status === 'inprogress' ? 'En Progreso' : 'Completado'}
+                                    </h3>
+                                    <span style={{background: 'rgba(0,0,0,0.04)', padding: '2px 8px', borderRadius: 12, fontSize: 12, fontWeight: 600, color: '#86868b'}}>
+                                        {filteredTasks.filter(t => t.status === status).length}
+                                    </span>
+                                </div>
                                 
-                                {filteredTasks.filter(t => t.status === status).map(task => (
-                                    <div 
-                                        key={task.id} 
-                                        className="kanban-card"
-                                        draggable
-                                        onDragStart={(e) => onDragStart(e, task.id)}
+                                <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
+                                    {filteredTasks.filter(t => t.status === status).map(task => (
+                                        <div 
+                                            key={task.id} 
+                                            className="kanban-card"
+                                            draggable
+                                            onDragStart={(e) => onDragStart(e, task.id)}
+                                            onClick={() => openModal(task)}
+                                            style={{border: '1px solid #e5e5ea', boxShadow: '0 2px 5px rgba(0,0,0,0.03)', transition: 'all 0.2s'}}
+                                        >
+                                            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10, alignItems: 'center'}}>
+                                                <span style={{fontSize: 10, fontWeight: 700, textTransform: 'uppercase', background: '#f5f5f7', padding: '4px 8px', borderRadius: 6, color: '#86868b'}}>{task.type}</span>
+                                                <div className="card-actions" style={{gap: 8}}>
+                                                    <button onClick={(e) => { e.stopPropagation(); openModal(task); }} title="Editar" style={{color: '#86868b'}}><FaEdit size={12}/></button>
+                                                    <button onClick={(e) => { e.stopPropagation(); handleDelete(task.id); }} title="Eliminar" style={{color: '#ff3b30'}}><FaTrash size={12}/></button>
+                                                </div>
+                                            </div>
+                                            
+                                            {task.images.length > 0 && (
+                                                <div style={{marginBottom: 12, borderRadius: 8, overflow: 'hidden', height: 130, border: '1px solid #f0f0f0'}}>
+                                                    <img src={task.images[0]} alt="preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                                                </div>
+                                            )}
+
+                                            <h4 style={{fontSize: 15, fontWeight: 600, margin: '0 0 6px 0', color: '#1d1d1f'}}>{task.title}</h4>
+                                            {task.desc && (
+                                                <p style={{fontSize: 13, color: '#86868b', margin: '0 0 12px 0', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
+                                                    {task.desc}
+                                                </p>
+                                            )}
+                                            
+                                            <div style={{display: 'flex', alignItems: 'center', gap: 12, borderTop: '1px solid #f5f5f7', paddingTop: 10}}>
+                                                <span style={{fontSize: 11, color: '#86868b', display: 'flex', alignItems: 'center', gap: 4}}>
+                                                    <FaRegCalendarAlt size={10}/> {task.schedule || '--:--'}
+                                                </span>
+                                                <span style={{fontSize: 11, color: '#86868b', display: 'flex', alignItems: 'center', gap: 4}}>
+                                                    <FaMapMarkerAlt size={10}/> {task.city || 'N/A'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    
+                                    {/* Botón rápido para agregar */}
+                                    <button 
+                                        onClick={() => { setFormData({...initialForm, status: status}); setCurrentTaskId(null); setIsModalOpen(true); }}
+                                        style={{
+                                            width: '100%', padding: '10px', borderRadius: 10, border: '1px dashed #d2d2d7', 
+                                            background: 'transparent', color: '#86868b', fontSize: 13, cursor: 'pointer',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6
+                                        }}
                                     >
-                                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
-                                            <span style={{fontSize: 11, background: '#f0f0f0', padding: '2px 6px', borderRadius: 4, color: '#666'}}>{task.type}</span>
-                                            <span style={{fontSize: 11, color: '#999'}}>{task.schedule}</span>
-                                        </div>
-                                        
-                                        {task.images.length > 0 && (
-                                            <img src={task.images[0]} alt="preview" className="card-image" />
-                                        )}
-
-                                        <h4 style={{fontSize: 16, margin: '5px 0'}}>{task.title}</h4>
-                                        <p style={{fontSize: 13, color: '#888', display: 'flex', alignItems: 'center', gap: 5}}>
-                                            <FaMapMarkerAlt size={10}/> {task.city}, {task.country}
-                                        </p>
-
-                                        <div className="card-actions">
-                                            <button onClick={() => openModal(task)} title="Modificar"><FaEdit /></button>
-                                            <button onClick={() => handleDelete(task.id)} title="Eliminar"><FaTrash /></button>
-                                        </div>
-                                    </div>
-                                ))}
+                                        <FaPlus size={10} /> Agregar tarea
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -436,32 +511,127 @@ export default function Dasboard() {
 
         {/* --- VISTA: REPORTES --- */}
         {activeSidebar === 'reports' && (
-            <div className="reports-layout" style={{marginTop: 20, animation: 'fadeIn 0.5s ease'}}>
-                <div className="chart-container">
-                    <h3 className="chart-title" style={{marginBottom: 20}}>Distribución de Tareas</h3>
-                    <div style={{display:'flex', justifyContent:'center', alignItems:'center', height: 200}}>
-                        {/* Simulación Gráfica Circular con CSS Conic Gradient */}
-                        <div style={{
-                            width: 180, height: 180, borderRadius: '50%',
-                            background: 'conic-gradient(#007aff 0% 35%, #ff3b30 35% 60%, #34c759 60% 100%)',
-                            position: 'relative'
-                        }}>
-                            <div style={{position:'absolute', inset: 40, background:'white', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
-                                <span style={{fontSize: 24, fontWeight:700}}>100%</span>
-                                <span style={{fontSize: 12, color:'#888'}}>Total</span>
+            <div className="reports-layout" style={{marginTop: 20, animation: 'fadeIn 0.5s ease', display: 'flex', flexDirection: 'column', gap: 30}}>
+                
+                {/* 1. LARGE AREA CHART (Ingresos / Actividad) */}
+                <div className="chart-container" style={{padding: 30, borderRadius: 20, border: '1px solid #e5e5ea', background: 'white', boxShadow: '0 10px 40px rgba(0,0,0,0.05)'}}>
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom: 20}}>
+                        <div>
+                            <h3 className="chart-title" style={{fontSize: 22}}>Rendimiento Anual</h3>
+                            <p style={{color:'#86868b', marginTop: 5}}>Ingresos vs Gastos (2024)</p>
+                        </div>
+                        <div style={{textAlign:'right'}}>
+                            <span style={{fontSize: 32, fontWeight: 700, color: '#1d1d1f'}}>$128,430</span>
+                            <span style={{display:'block', color:'#34c759', fontSize: 14, fontWeight: 600}}>+12.5% vs año pasado</span>
+                        </div>
+                    </div>
+                    
+                    {/* SVG Chart */}
+                    <div style={{height: 300, width: '100%', position: 'relative'}}>
+                        <svg viewBox="0 0 1000 300" style={{width: '100%', height: '100%', overflow: 'visible'}}>
+                            <defs>
+                                <linearGradient id="gradientFill" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stopColor="#007aff" stopOpacity="0.2"/>
+                                    <stop offset="100%" stopColor="#007aff" stopOpacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            {/* Grid Lines */}
+                            <line x1="0" y1="225" x2="1000" y2="225" stroke="#eee" strokeWidth="1" />
+                            <line x1="0" y1="150" x2="1000" y2="150" stroke="#eee" strokeWidth="1" />
+                            <line x1="0" y1="75" x2="1000" y2="75" stroke="#eee" strokeWidth="1" />
+                            
+                            {/* The Line */}
+                            <path 
+                                d="M0,250 C100,200 200,280 300,150 C400,50 500,180 600,120 C700,60 800,100 900,50 L1000,80" 
+                                fill="none" 
+                                stroke="#007aff" 
+                                strokeWidth="4" 
+                                strokeLinecap="round"
+                            />
+                            {/* The Area */}
+                            <path 
+                                d="M0,250 C100,200 200,280 300,150 C400,50 500,180 600,120 C700,60 800,100 900,50 L1000,80 L1000,300 L0,300 Z" 
+                                fill="url(#gradientFill)" 
+                            />
+                            
+                            {/* Data Points */}
+                            {[
+                                {cx: 300, cy: 150, val: '$45k'}, 
+                                {cx: 600, cy: 120, val: '$62k'}, 
+                                {cx: 900, cy: 50, val: '$89k'}
+                            ].map((p, i) => (
+                                <g key={i}>
+                                    <circle cx={p.cx} cy={p.cy} r="6" fill="#fff" stroke="#007aff" strokeWidth="3" />
+                                    <text x={p.cx} y={p.cy - 15} textAnchor="middle" fill="#1d1d1f" fontSize="12" fontWeight="600">{p.val}</text>
+                                </g>
+                            ))}
+                        </svg>
+                        
+                        {/* X Axis Labels */}
+                        <div style={{display:'flex', justifyContent:'space-between', marginTop: 10, color: '#86868b', fontSize: 12}}>
+                            <span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="reports-grid" style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 30}}>
+                    
+                    {/* 2. ADVANCED DONUT (Distribución) */}
+                    <div className="chart-container" style={{background:'white', padding:30, borderRadius:20, border:'1px solid #e5e5ea'}}>
+                        <h3 className="chart-title">Distribución de Proyectos</h3>
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-around', marginTop: 20}}>
+                            <div style={{position: 'relative', width: 200, height: 200}}>
+                                <svg viewBox="0 0 36 36" style={{width: '100%', height: '100%', transform: 'rotate(-90deg)'}}>
+                                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f5f5f7" strokeWidth="3.8" />
+                                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#007aff" strokeWidth="3.8" strokeDasharray="70 30" strokeDashoffset="0" />
+                                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ff3b30" strokeWidth="3.8" strokeDasharray="20 80" strokeDashoffset="-70" />
+                                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#34c759" strokeWidth="3.8" strokeDasharray="10 90" strokeDashoffset="-90" />
+                                </svg>
+                                <div style={{position:'absolute', inset:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+                                    <span style={{fontSize: 32, fontWeight: 700}}>142</span>
+                                    <span style={{fontSize: 12, color:'#86868b'}}>Total</span>
+                                </div>
+                            </div>
+                            <div style={{display:'flex', flexDirection:'column', gap: 15}}>
+                                <div style={{display:'flex', alignItems:'center', gap:10}}>
+                                    <span style={{width:12, height:12, borderRadius:4, background:'#007aff'}}></span>
+                                    <div><div style={{fontSize:14, fontWeight:600}}>Desarrollo</div><div style={{fontSize:12, color:'#888'}}>70%</div></div>
+                                </div>
+                                <div style={{display:'flex', alignItems:'center', gap:10}}>
+                                    <span style={{width:12, height:12, borderRadius:4, background:'#ff3b30'}}></span>
+                                    <div><div style={{fontSize:14, fontWeight:600}}>Diseño</div><div style={{fontSize:12, color:'#888'}}>20%</div></div>
+                                </div>
+                                <div style={{display:'flex', alignItems:'center', gap:10}}>
+                                    <span style={{width:12, height:12, borderRadius:4, background:'#34c759'}}></span>
+                                    <div><div style={{fontSize:14, fontWeight:600}}>Marketing</div><div style={{fontSize:12, color:'#888'}}>10%</div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div style={{display:'flex', justifyContent:'center', gap: 20, marginTop: 20}}>
-                         <div style={{display:'flex', alignItems:'center', gap:5, fontSize:12}}><span style={{width:10, height:10, background:'#007aff', borderRadius:'50%'}}></span> Trabajo</div>
-                         <div style={{display:'flex', alignItems:'center', gap:5, fontSize:12}}><span style={{width:10, height:10, background:'#ff3b30', borderRadius:'50%'}}></span> Urgente</div>
-                         <div style={{display:'flex', alignItems:'center', gap:5, fontSize:12}}><span style={{width:10, height:10, background:'#34c759', borderRadius:'50%'}}></span> Personal</div>
+
+                    {/* 3. PROGRESS BARS (Objetivos) */}
+                    <div className="chart-container" style={{background:'white', padding:30, borderRadius:20, border:'1px solid #e5e5ea'}}>
+                        <h3 className="chart-title" style={{marginBottom: 20}}>Objetivos Trimestrales</h3>
+                        <div style={{display:'flex', flexDirection:'column', gap: 25}}>
+                            {[
+                                {label: 'Ventas Q3', val: 78, color: '#5856d6'},
+                                {label: 'Nuevos Clientes', val: 45, color: '#ff9500'},
+                                {label: 'Retención', val: 92, color: '#30b0c7'},
+                                {label: 'Satisfacción', val: 88, color: '#ff2d55'}
+                            ].map((item, i) => (
+                                <div key={i}>
+                                    <div style={{display:'flex', justifyContent:'space-between', marginBottom: 8, fontSize: 14, fontWeight: 500}}>
+                                        <span>{item.label}</span>
+                                        <span style={{color: item.color}}>{item.val}%</span>
+                                    </div>
+                                    <div style={{width:'100%', height: 10, background: '#f5f5f7', borderRadius: 5, overflow:'hidden'}}>
+                                        <div style={{width: `${item.val}%`, height:'100%', background: item.color, borderRadius: 5}}></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                
-                <div className="chart-container">
-                    <h3 className="chart-title">Rendimiento</h3>
-                    <p style={{color: '#888', marginTop: 10}}>Esta sección muestra métricas avanzadas de usuario.</p>
+
                 </div>
             </div>
         )}
@@ -523,11 +693,50 @@ export default function Dasboard() {
         )}
 
         {/* --- VISTAS VACÍAS (Placeholder) --- */}
-        {!['dashboard', 'notes', 'reports', 'files', 'settings'].includes(activeSidebar) && (
-            <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', color: '#aaa'}}>
-                <FaCog size={60} style={{marginBottom: 20, opacity: 0.2}} />
-                <h2>Función en desarrollo</h2>
-                <p>Explora las secciones Panel, Mis Notas o Reportes.</p>
+        {activeSidebar === 'calendar' && (
+            <div style={{marginTop: 20, animation: 'fadeIn 0.5s ease', height: '100%', display: 'flex', flexDirection: 'column'}}>
+                <div className="calendar-header-pro">
+                    <div style={{display:'flex', alignItems:'center', gap: 20}}>
+                        <h2 style={{fontSize: 28, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>
+                            {monthNames[currentDate.getMonth()]} <span style={{color: '#86868b'}}>{currentDate.getFullYear()}</span>
+                        </h2>
+                        <div className="calendar-nav-buttons">
+                            <button onClick={() => changeMonth(-1)}><FaChevronLeft /></button>
+                            <button onClick={() => setCurrentDate(new Date())}>Hoy</button>
+                            <button onClick={() => changeMonth(1)}><FaChevronRight /></button>
+                        </div>
+                    </div>
+                    <button className="auth-button" style={{width: 'auto', height: 40, fontSize: 14, padding: '0 20px'}}>
+                        <FaPlus style={{marginRight: 8}}/> Nuevo Evento
+                    </button>
+                </div>
+
+                <div className="calendar-container-pro">
+                    {/* Encabezados de días */}
+                    <div className="calendar-week-header">
+                        {dayNames.map(day => <div key={day} className="day-name">{day}</div>)}
+                    </div>
+                    
+                    {/* Grid de días */}
+                    <div className="calendar-grid-pro">
+                        {Array.from({ length: getFirstDayOfMonth(currentDate) }).map((_, i) => (
+                            <div key={`empty-${i}`} className="calendar-day empty"></div>
+                        ))}
+                        {Array.from({ length: getDaysInMonth(currentDate) }).map((_, i) => {
+                            const day = i + 1;
+                            const isToday = day === new Date().getDate() && currentDate.getMonth() === new Date().getMonth() && currentDate.getFullYear() === new Date().getFullYear();
+                            return (
+                                <div key={day} className={`calendar-day ${isToday ? 'today' : ''}`}>
+                                    <div className="day-number">{day}</div>
+                                    {/* Simulación de eventos aleatorios para que se vea lleno */}
+                                    {day % 6 === 0 && <div className="cal-event blue">Revisión Q3</div>}
+                                    {day % 15 === 0 && <div className="cal-event red">Entrega Final</div>}
+                                    {day % 8 === 0 && day % 6 !== 0 && <div className="cal-event green">Gym</div>}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         )}
 
@@ -536,63 +745,80 @@ export default function Dasboard() {
       {/* 4. MODAL CRUD COMPLEJO */}
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content-large">
-            <h2 style={{marginBottom: 25, fontSize: 24}}>{currentTaskId ? 'Modificar Nota' : 'Agregar Nueva Nota'}</h2>
+          <div className="modal-content-large" style={{maxWidth: 700}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30, paddingBottom: 20, borderBottom: '1px solid #e5e5ea'}}>
+                <div>
+                    <h2 style={{fontSize: 24, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>{currentTaskId ? 'Editar Nota' : 'Nueva Nota'}</h2>
+                    <p style={{margin: '5px 0 0', color: '#86868b', fontSize: 14}}>Gestiona la información de tu tarea.</p>
+                </div>
+                <button onClick={closeModal} style={{background:'none', border:'none', cursor:'pointer', color:'#86868b'}}><FaTimes size={20}/></button>
+            </div>
             
             <form onSubmit={handleSubmit}>
-                <div className="form-grid">
-                    <div>
+                <div className="form-grid" style={{gap: 25}}>
+                    {/* Sección 1: Información Principal */}
+                    <div className="form-full">
                         <label className="apple-label">Nombre de Nota</label>
-                        <input className="apple-field" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} placeholder="Ej: Proyecto X" />
+                        <input className="apple-field" style={{fontSize: 18, fontWeight: 500}} value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} placeholder="Ej: Proyecto X" autoFocus />
                     </div>
                     <div>
-                        <label className="apple-label">Tipo</label>
+                        <label className="apple-label">Categoría</label>
                         <select className="apple-field" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})}>
                             <option>Trabajo</option>
                             <option>Personal</option>
                             <option>Reunión</option>
                             <option>Idea</option>
+                            <option>Urgente</option>
                         </select>
                     </div>
 
                     <div>
-                        <label className="apple-label">Horario</label>
+                        <label className="apple-label">Horario Límite</label>
                         <input className="apple-field" type="time" value={formData.schedule} onChange={e => setFormData({...formData, schedule: e.target.value})} />
                     </div>
+
+                    {/* Sección 2: Detalles y Contacto */}
+                    <div className="form-full" style={{borderTop: '1px solid #f5f5f7', paddingTop: 20, marginTop: 5}}>
+                        <h4 style={{fontSize: 14, fontWeight: 600, color: '#1d1d1f', marginBottom: 15}}>Detalles Adicionales</h4>
+                    </div>
+
                     <div>
-                        <label className="apple-label">Email de Contacto</label>
+                        <label className="apple-label">Email Contacto</label>
                         <input className="apple-field" type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="contacto@mail.com"/>
                     </div>
 
                     <div>
-                        <label className="apple-label">País</label>
-                        <input className="apple-field" value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} placeholder="País"/>
-                    </div>
-                    <div>
-                        <label className="apple-label">Ciudad</label>
-                        <input className="apple-field" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} placeholder="Ciudad"/>
+                        <label className="apple-label">Ubicación (Ciudad/País)</label>
+                        <input className="apple-field" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} placeholder="Ej: Madrid, España"/>
                     </div>
                     
                     <div className="form-full">
                         <label className="apple-label">Descripción</label>
-                        <textarea className="apple-field" rows="3" value={formData.desc} onChange={e => setFormData({...formData, desc: e.target.value})} placeholder="Detalles de la nota..."></textarea>
+                        <textarea className="apple-field" rows="4" value={formData.desc} onChange={e => setFormData({...formData, desc: e.target.value})} placeholder="Describe los detalles..." style={{resize:'vertical'}}></textarea>
                     </div>
 
                     <div className="form-full">
-                         <label className="apple-label">Estado</label>
-                         <div style={{display: 'flex', gap: 20}}>
-                             <label style={{display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer'}}>
-                                 <input type="radio" name="status" checked={formData.status === 'todo'} onChange={() => setFormData({...formData, status: 'todo'})} /> Por Hacer
-                             </label>
-                             <label style={{display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer'}}>
-                                 <input type="radio" name="status" checked={formData.status === 'inprogress'} onChange={() => setFormData({...formData, status: 'inprogress'})} /> En Progreso
-                             </label>
-                             <label style={{display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer'}}>
-                                 <input type="radio" name="status" checked={formData.status === 'done'} onChange={() => setFormData({...formData, status: 'done'})} /> Completado
-                             </label>
+                         <label className="apple-label">Estado de la Tarea</label>
+                         <div style={{display: 'flex', gap: 10, background: '#f5f5f7', padding: 5, borderRadius: 12}}>
+                             {['todo', 'inprogress', 'done'].map(st => (
+                                 <div 
+                                    key={st}
+                                    onClick={() => setFormData({...formData, status: st})}
+                                    style={{
+                                        flex: 1, textAlign: 'center', padding: '10px 0', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 500,
+                                        background: formData.status === st ? 'white' : 'transparent',
+                                        color: formData.status === st ? '#1d1d1f' : '#86868b',
+                                        boxShadow: formData.status === st ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
+                                        transition: 'all 0.2s'
+                                    }}
+                                 >
+                                     {st === 'todo' ? 'Por Hacer' : st === 'inprogress' ? 'En Progreso' : 'Completado'}
+                                 </div>
+                             ))}
                          </div>
                     </div>
 
+                    {/* Sección 3: Multimedia */}
                     <div className="form-full">
                         <label className="apple-label">Galería de Imágenes</label>
                         <div style={{display: 'flex', gap: 10, marginBottom: 10}}>
@@ -608,20 +834,22 @@ export default function Dasboard() {
                         </div>
                         
                         <div className="image-gallery-preview">
-                            {formData.images.length === 0 && <span style={{fontSize: 12, color: '#aaa'}}>Sin imágenes</span>}
-                            {formData.images.map((img, idx) => (
-                                <div key={idx} className="gallery-thumb-container">
-                                    <img src={img} className="gallery-thumb" alt="thumb" />
-                                    <button type="button" className="remove-img-btn" onClick={() => handleRemoveImage(idx)}>X</button>
-                                </div>
-                            ))}
-                        </div>
+                                {formData.images.length === 0 && <span style={{fontSize: 13, color: '#aaa', padding: 10}}>No hay imágenes adjuntas.</span>}
+                                {formData.images.map((img, idx) => (
+                                    <div key={idx} className="gallery-thumb-container">
+                                        <img src={img} className="gallery-thumb" alt="thumb" />
+                                        <button type="button" className="remove-img-btn" onClick={() => handleRemoveImage(idx)} style={{background: '#ff3b30', width: 20, height: 20, borderRadius: '50%', top: -5, right: -5}}>
+                                            <FaTimes size={10} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                     </div>
                 </div>
 
-                <div style={{display: 'flex', gap: 15, justifyContent: 'flex-end', marginTop: 30}}>
-                    <button type="button" onClick={closeModal} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', width: 'auto', padding: '0 30px'}}>Cancelar</button>
-                    <button type="submit" className="auth-button" style={{width: 'auto', padding: '0 40px'}}>
+                <div style={{display: 'flex', gap: 15, justifyContent: 'flex-end', marginTop: 40, paddingTop: 20, borderTop: '1px solid #e5e5ea'}}>
+                    <button type="button" onClick={closeModal} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', width: 'auto', padding: '0 25px', boxShadow:'none', border: '1px solid #e5e5ea'}}>Cancelar</button>
+                    <button type="submit" className="auth-button" style={{width: 'auto', padding: '0 35px', background: '#007aff'}}>
                         {currentTaskId ? 'Guardar Cambios' : 'Crear Nota'}
                     </button>
                 </div>
