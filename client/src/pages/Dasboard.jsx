@@ -10,7 +10,8 @@ import {
   FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight,
   FaAlignLeft, FaImage, FaExchangeAlt, FaPhone, FaStar, FaUserPlus,
   FaSlidersH, FaPalette, FaKeyboard, FaShieldAlt, FaCheck, FaUndo,
-  FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileCode, FaFileArchive, FaFileVideo, FaFileAudio, FaFileCsv
+  FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileCode, FaFileArchive, FaFileVideo, FaFileAudio, FaFileCsv,
+  FaUser, FaCreditCard, FaGlobe, FaMoon, FaSun, FaDesktop, FaLock
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -37,6 +38,7 @@ export default function Dasboard() {
   const [editingContactId, setEditingContactId] = useState(null);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [activeSettingTab, setActiveSettingTab] = useState('general');
+  const [themeMode, setThemeMode] = useState('light');
   
   // --- Estado de Archivos (File Explorer) ---
   const fileInputRef = useRef(null);
@@ -811,10 +813,10 @@ export default function Dasboard() {
 
                 <div className="settings-grid">
                     <div className="setting-card" onClick={() => { setActiveSettingTab('general'); setIsSettingsModalOpen(true); }}>
-                        <div className="setting-icon"><FaSlidersH /></div>
+                        <div className="setting-icon"><FaUser /></div>
                         <div className="setting-info">
-                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>General</h4>
-                            <p style={{fontSize: 13, color:'#86868b'}}>Idioma, notificaciones y sincronización.</p>
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Mi Perfil</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Datos personales y avatar.</p>
                         </div>
                     </div>
                     
@@ -826,19 +828,19 @@ export default function Dasboard() {
                         </div>
                     </div>
 
-                    <div className="setting-card" onClick={() => { setActiveSettingTab('shortcuts'); setIsSettingsModalOpen(true); }}>
-                        <div className="setting-icon"><FaKeyboard /></div>
+                    <div className="setting-card" onClick={() => { setActiveSettingTab('billing'); setIsSettingsModalOpen(true); }}>
+                        <div className="setting-icon"><FaCreditCard /></div>
                         <div className="setting-info">
-                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Atajos de Teclado</h4>
-                            <p style={{fontSize: 13, color:'#86868b'}}>Teclas rápidas y productividad.</p>
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Facturación</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Planes, pagos y facturas.</p>
                         </div>
                     </div>
 
-                    <div className="setting-card">
-                        <div className="setting-icon"><FaShieldAlt /></div>
+                    <div className="setting-card" onClick={() => { setActiveSettingTab('team'); setIsSettingsModalOpen(true); }}>
+                        <div className="setting-icon"><FaUserFriends /></div>
                         <div className="setting-info">
-                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Seguridad</h4>
-                            <p style={{fontSize: 13, color:'#86868b'}}>Contraseña y sesiones.</p>
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Equipo</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Miembros y permisos.</p>
                         </div>
                     </div>
                 </div>
@@ -1167,9 +1169,13 @@ export default function Dasboard() {
                     {/* Sidebar Tabs */}
                     <div style={{width: 220, background: '#fbfbfd', borderRight: '1px solid #e5e5ea', padding: '20px 15px'}}>
                         {[
+                            {id: 'profile', label: 'Mi Perfil', icon: <FaUser size={14}/>},
                             {id: 'general', label: 'General', icon: <FaSlidersH size={14}/>},
                             {id: 'appearance', label: 'Apariencia', icon: <FaPalette size={14}/>},
                             {id: 'shortcuts', label: 'Atajos (Teclado)', icon: <FaKeyboard size={14}/>},
+                            {id: 'security', label: 'Seguridad', icon: <FaLock size={14}/>},
+                            {id: 'team', label: 'Equipo', icon: <FaUserFriends size={14}/>},
+                            {id: 'billing', label: 'Facturación', icon: <FaCreditCard size={14}/>},
                         ].map(tab => (
                             <div 
                                 key={tab.id}
@@ -1191,8 +1197,38 @@ export default function Dasboard() {
                     {/* Content Area */}
                     <div style={{flex: 1, padding: 30, overflowY: 'auto', maxHeight: 500}}>
                         
+                        {activeSettingTab === 'profile' && (
+                            <div>
+                                <div style={{display:'flex', alignItems:'center', gap: 20, marginBottom: 30}}>
+                                    <div style={{width: 80, height: 80, borderRadius:'50%', background:'#eee', overflow:'hidden'}}>
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80" style={{width:'100%', height:'100%', objectFit:'cover'}} alt="avatar" />
+                                    </div>
+                                    <div>
+                                        <button className="auth-button" style={{width:'auto', padding:'0 15px', height: 34, fontSize: 13, marginTop:0}}>Cambiar Foto</button>
+                                        <p style={{fontSize:12, color:'#86868b', marginTop: 5}}>Recomendado: 400x400px</p>
+                                    </div>
+                                </div>
+                                <div className="form-grid">
+                                    <div><label className="apple-label">Nombre Completo</label><input className="apple-field" defaultValue="Carlos System" /></div>
+                                    <div><label className="apple-label">Nombre de Usuario</label><input className="apple-field" defaultValue="@carlos_sys" /></div>
+                                    <div className="form-full"><label className="apple-label">Correo Electrónico</label><input className="apple-field" defaultValue="carlos@system24.com" /></div>
+                                    <div className="form-full"><label className="apple-label">Biografía</label><textarea className="apple-field" rows="3" defaultValue="Desarrollador Full Stack apasionado por el diseño UI/UX." /></div>
+                                </div>
+                            </div>
+                        )}
+
                         {activeSettingTab === 'general' && (
                             <div>
+                                <div style={{marginBottom: 25}}>
+                                    <label className="apple-label">Idioma</label>
+                                    <div style={{display:'flex', gap:10, alignItems:'center', border:'1px solid #d2d2d7', padding:10, borderRadius:10}}>
+                                        <FaGlobe color="#86868b"/>
+                                        <select style={{border:'none', background:'transparent', width:'100%', outline:'none', fontSize:15}}>
+                                            <option>Español (Latinoamérica)</option>
+                                            <option>English (US)</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div className="settings-row">
                                     <div>
                                         <h5 style={{fontSize: 15, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>Historial de Versiones (Control Z)</h5>
@@ -1243,9 +1279,98 @@ export default function Dasboard() {
                         )}
 
                         {activeSettingTab === 'appearance' && (
-                            <div style={{textAlign: 'center', color: '#86868b', paddingTop: 40}}>
-                                <FaPalette size={40} style={{marginBottom: 10, opacity: 0.3}} />
-                                <p>Próximamente más temas visuales.</p>
+                            <div>
+                                <label className="apple-label">Tema de la Interfaz</label>
+                                <div className="theme-selector">
+                                    <div className={`theme-option ${themeMode === 'light' ? 'active' : ''}`} onClick={() => setThemeMode('light')}>
+                                        <div className="theme-preview light"></div>
+                                        <span style={{fontSize:13, fontWeight:500}}>Claro</span>
+                                    </div>
+                                    <div className={`theme-option ${themeMode === 'dark' ? 'active' : ''}`} onClick={() => setThemeMode('dark')}>
+                                        <div className="theme-preview dark"></div>
+                                        <span style={{fontSize:13, fontWeight:500}}>Oscuro</span>
+                                    </div>
+                                    <div className={`theme-option ${themeMode === 'system' ? 'active' : ''}`} onClick={() => setThemeMode('system')}>
+                                        <div className="theme-preview system"></div>
+                                        <span style={{fontSize:13, fontWeight:500}}>Sistema</span>
+                                    </div>
+                                </div>
+                                <p style={{fontSize:13, color:'#86868b', marginTop:15}}>Selecciona tu preferencia visual para el dashboard.</p>
+                            </div>
+                        )}
+
+                        {activeSettingTab === 'team' && (
+                            <div>
+                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 20}}>
+                                    <h4 style={{fontSize: 16, fontWeight: 600}}>Miembros del Equipo</h4>
+                                    <button className="auth-button" style={{width:'auto', height: 32, fontSize: 12, padding:'0 15px', marginTop:0}}>Invitar</button>
+                                </div>
+                                {[
+                                    {name: 'Carlos System', email: 'carlos@system24.com', role: 'Propietario', img: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'},
+                                    {name: 'Sarah Connor', email: 'sarah@skynet.com', role: 'Admin', img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80'},
+                                    {name: 'David Miller', email: 'david@code.com', role: 'Editor', img: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=80'},
+                                ].map((m, i) => (
+                                    <div key={i} className="team-member-row">
+                                        <div className="team-member-info">
+                                            <img src={m.img} className="team-avatar" alt="mem"/>
+                                            <div>
+                                                <div style={{fontSize:14, fontWeight:600, color:'#1d1d1f'}}>{m.name}</div>
+                                                <div style={{fontSize:12, color:'#86868b'}}>{m.email}</div>
+                                            </div>
+                                        </div>
+                                        <span className={`role-badge ${m.role === 'Admin' || m.role === 'Propietario' ? 'admin' : ''}`}>{m.role}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {activeSettingTab === 'billing' && (
+                            <div>
+                                <div className="billing-card">
+                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
+                                        <div>
+                                            <div style={{fontSize:12, opacity:0.7, textTransform:'uppercase', letterSpacing:1}}>Plan Actual</div>
+                                            <div style={{fontSize:24, fontWeight:700, margin:'5px 0'}}>System24 Pro</div>
+                                        </div>
+                                        <div style={{background:'rgba(255,255,255,0.2)', padding:'4px 10px', borderRadius:20, fontSize:12, fontWeight:600}}>$29/mes</div>
+                                    </div>
+                                    <div style={{marginTop:30}}>
+                                        <div style={{display:'flex', justifyContent:'space-between', fontSize:12, marginBottom:5}}>
+                                            <span>Almacenamiento</span>
+                                            <span>45GB / 100GB</span>
+                                        </div>
+                                        <div style={{width:'100%', height:6, background:'rgba(255,255,255,0.2)', borderRadius:3}}>
+                                            <div style={{width:'45%', height:'100%', background:'#34c759', borderRadius:3}}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 15, color: '#1d1d1f'}}>Método de Pago</h4>
+                                <div style={{display:'flex', alignItems:'center', gap: 15, border:'1px solid #e5e5ea', padding: 15, borderRadius: 12}}>
+                                    <div style={{fontSize:24, color:'#1d1d1f'}}><FaCreditCard /></div>
+                                    <div style={{flex:1}}>
+                                        <div style={{fontSize:14, fontWeight:600, color:'#1d1d1f'}}>Visa terminada en 4242</div>
+                                        <div style={{fontSize:12, color:'#86868b'}}>Expira 12/2028</div>
+                                    </div>
+                                    <button style={{border:'none', background:'transparent', color:'#007aff', fontWeight:600, cursor:'pointer'}}>Editar</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSettingTab === 'security' && (
+                            <div>
+                                <div className="form-full" style={{marginBottom: 25}}>
+                                    <label className="apple-label">Cambiar Contraseña</label>
+                                    <input className="apple-field" type="password" placeholder="Contraseña actual" style={{marginBottom: 10}} />
+                                    <input className="apple-field" type="password" placeholder="Nueva contraseña" style={{marginBottom: 10}} />
+                                    <input className="apple-field" type="password" placeholder="Confirmar nueva contraseña" />
+                                </div>
+                                <div className="settings-row" style={{borderTop:'1px solid #f9f9f9', paddingTop: 20}}>
+                                    <div>
+                                        <h5 style={{fontSize: 15, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>Autenticación de Dos Factores (2FA)</h5>
+                                        <p style={{fontSize: 13, color: '#86868b', maxWidth: 350}}>Añade una capa extra de seguridad a tu cuenta.</p>
+                                    </div>
+                                    <FaToggleOff size={32} color="#d1d1d6" style={{cursor:'pointer'}}/>
+                                </div>
                             </div>
                         )}
                     </div>
