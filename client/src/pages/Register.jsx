@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
-import { FaApple, FaGoogle, FaFacebook, FaAmazon } from "react-icons/fa";
+import { FaShoppingBag, FaGoogle, FaFacebook, FaAmazon } from "react-icons/fa";
 
 export default function Register() {
 
@@ -47,9 +47,9 @@ export default function Register() {
         <div className="auth-container">
             <div className="auth-card">
                     <div className="auth-header">
-                        <FaApple size={50} className="auth-logo" />
-                        <h1>Apple ID</h1>
-                        <p>Crea tu Apple ID para empezar.</p>
+                        <FaShoppingBag size={50} className="auth-logo" />
+                        <h1>Crear Cuenta</h1>
+                        <p>Regístrate para acceder a ofertas exclusivas.</p>
                     </div>
 
                     <form onSubmit={registerUser} className="auth-form">

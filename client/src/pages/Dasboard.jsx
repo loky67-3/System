@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
-  FaApple, FaThLarge, FaList, FaCog, FaSignOutAlt, 
+  FaThLarge, FaList, FaCog, FaSignOutAlt, 
   FaPlus, FaTrash, FaEdit, FaSearch, FaBell,
   FaRegCalendarAlt, FaUserFriends, FaFolderOpen, FaChartPie, 
   FaQuestionCircle, FaStickyNote, FaMapMarkerAlt, FaEnvelope, 
@@ -72,7 +72,7 @@ export default function Dasboard() {
 
   // --- Lógica del Sidebar (10 Funciones) ---
   const sidebarItems = [
-    { id: 'dashboard', icon: <FaThLarge />, label: 'Dashboard' },
+    { id: 'dashboard', icon: <FaThLarge />, label: 'Panel' },
     { id: 'notes', icon: <FaStickyNote />, label: 'Mis Notas' },
     { id: 'calendar', icon: <FaRegCalendarAlt />, label: 'Calendario' },
     { id: 'contacts', icon: <FaUserFriends />, label: 'Contactos' },
@@ -183,7 +183,7 @@ export default function Dasboard() {
       {/* 1. SIDEBAR PRO */}
       <aside className="db-sidebar">
         <div className="db-logo">
-          <FaApple size={26} /> iWorkOS
+          <FaCheckDouble size={26} /> System24
         </div>
         
         <div style={{flex: 1, overflowY: 'auto'}}>
@@ -199,8 +199,8 @@ export default function Dasboard() {
           ))}
         </div>
 
-        <div className="db-nav-item db-logout" onClick={() => { toast.success("Adiós!"); navigate('/login'); }}>
-          <FaSignOutAlt /> Desloguearse
+        <div className="db-nav-item db-logout" onClick={() => { toast.success("¡Hasta luego!"); navigate('/login'); }}>
+          <FaSignOutAlt /> Cerrar sesión
         </div>
       </aside>
 
@@ -527,7 +527,7 @@ export default function Dasboard() {
             <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', color: '#aaa'}}>
                 <FaCog size={60} style={{marginBottom: 20, opacity: 0.2}} />
                 <h2>Función en desarrollo</h2>
-                <p>Explora las secciones Dashboard, Mis Notas o Reportes.</p>
+                <p>Explora las secciones Panel, Mis Notas o Reportes.</p>
             </div>
         )}
 

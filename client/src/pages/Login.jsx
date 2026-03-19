@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import { useNavigate, Link } from "react-router-dom"
-import { FaApple, FaGoogle, FaFacebook } from "react-icons/fa"
+import { FaShoppingBag, FaGoogle, FaFacebook } from "react-icons/fa"
 
 export default function Login() {
 
@@ -49,9 +49,9 @@ export default function Login() {
       {/* Tarjeta de Login Estilo Apple Original */}
       <div className="auth-card">
             <div className="auth-header">
-              <FaApple size={50} className="auth-logo" />
+              <FaShoppingBag size={50} className="auth-logo" />
               <h1>Inicia sesión</h1>
-              <p>Usa tu Apple ID para acceder</p>
+              <p>Usa tu cuenta para acceder</p>
             </div>
             
             <form onSubmit={loginUser} className="auth-form">
@@ -75,7 +75,7 @@ export default function Login() {
             <div className="auth-divider"><span>o continúa con</span></div>
             <div className="auth-social">
                 <button className="social-btn"><FaGoogle /></button>
-                <button className="social-btn"><FaApple /></button>
+                <button className="social-btn"><FaShoppingBag /></button>
                 <button className="social-btn"><FaFacebook /></button>
             </div>
           
