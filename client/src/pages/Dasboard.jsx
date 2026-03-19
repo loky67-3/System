@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
@@ -8,7 +8,9 @@ import {
   FaQuestionCircle, FaStickyNote, FaMapMarkerAlt, FaEnvelope, 
   FaCheckDouble, FaArrowUp, FaFilePdf, FaFileImage, FaFileAlt, 
   FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight,
-  FaAlignLeft, FaImage, FaExchangeAlt, FaPhone, FaStar, FaUserPlus
+  FaAlignLeft, FaImage, FaExchangeAlt, FaPhone, FaStar, FaUserPlus,
+  FaSlidersH, FaPalette, FaKeyboard, FaShieldAlt, FaCheck, FaUndo,
+  FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileCode, FaFileArchive, FaFileVideo, FaFileAudio, FaFileCsv
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -33,7 +35,34 @@ export default function Dasboard() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactForm, setContactForm] = useState({ name: "", role: "", phone: "", email: "", image: "" });
   const [editingContactId, setEditingContactId] = useState(null);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [activeSettingTab, setActiveSettingTab] = useState('general');
   
+  // --- Estado de Archivos (File Explorer) ---
+  const fileInputRef = useRef(null);
+  const [files, setFiles] = useState([
+      { name: "Reporte_Q1.pdf", type: "pdf", size: "2.4 MB", date: "Hoy" },
+      { name: "Analisis_Ventas.xlsx", type: "excel", size: "1.1 MB", date: "Ayer" },
+      { name: "Presentacion.pptx", type: "ppt", size: "12 MB", date: "Ayer" },
+      { name: "Logo_Vector.svg", type: "img", size: "800 KB", date: "Semana pasada" },
+      { name: "index.html", type: "code", size: "4 KB", date: "Hoy" },
+      { name: "Backup_BD.zip", type: "zip", size: "1.2 GB", date: "Mes pasado" },
+      { name: "Promo_Reel.mp4", type: "video", size: "450 MB", date: "Hoy" },
+      { name: "Entrevista.mp3", type: "audio", size: "45 MB", date: "Ayer" },
+      { name: "Clientes_2024.csv", type: "csv", size: "150 KB", date: "Ayer" },
+      { name: "Contrato_Borrador.docx", type: "word", size: "24 KB", date: "Hoy" },
+      { name: "styles.css", type: "code", size: "12 KB", date: "Semana pasada" },
+      { name: "app.js", type: "code", size: "28 KB", date: "Hoy" },
+      { name: "Notas_Rapidas.txt", type: "text", size: "2 KB", date: "Hace un mes" },
+      { name: "Foto_Perfil.jpg", type: "img", size: "5.6 MB", date: "Ayer" },
+      { name: "Banner_Web.png", type: "img", size: "3.2 MB", date: "Semana pasada" },
+      { name: "Podcast_Intro.wav", type: "audio", size: "120 MB", date: "Hoy" },
+      { name: "Meme_Team.gif", type: "img", size: "12 MB", date: "Ayer" },
+      { name: "config.json", type: "code", size: "1 KB", date: "Hoy" },
+      { name: "Proyecto_Final.rar", type: "zip", size: "3.4 GB", date: "Ayer" },
+      { name: "Instrucciones.rtf", type: "text", size: "5 KB", date: "Hoy" }
+  ]);
+
   // --- Estado de Datos (Simulando Base de Datos Compleja) ---
   const [tasks, setTasks] = useState([
     { 
@@ -180,6 +209,51 @@ export default function Dasboard() {
     }
     setIsModalOpen(true);
   };
+
+  // --- Lógica de Archivos (Upload & Icons) ---
+  const handleFileUpload = (e) => {
+    const uploadedFiles = Array.from(e.target.files);
+    const newFiles = uploadedFiles.map(file => {
+        let type = 'text';
+        const ext = file.name.split('.').pop().toLowerCase();
+        
+        if (['pdf'].includes(ext)) type = 'pdf';
+        else if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(ext)) type = 'img';
+        else if (['doc', 'docx'].includes(ext)) type = 'word';
+        else if (['xls', 'xlsx'].includes(ext)) type = 'excel';
+        else if (['ppt', 'pptx'].includes(ext)) type = 'ppt';
+        else if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) type = 'zip';
+        else if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) type = 'video';
+        else if (['mp3', 'wav', 'ogg', 'm4a'].includes(ext)) type = 'audio';
+        else if (['js', 'html', 'css', 'json', 'py', 'java', 'c', 'cpp'].includes(ext)) type = 'code';
+        else if (['csv'].includes(ext)) type = 'csv';
+
+        return {
+            name: file.name,
+            type: type,
+            size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
+            date: 'Ahora'
+        };
+    });
+    setFiles([...newFiles, ...files]);
+    toast.success(`${uploadedFiles.length} archivo(s) agregado(s)`);
+  };
+
+  const getFileIcon = (type) => {
+    switch(type) {
+        case 'pdf': return <FaFilePdf color="#ff3b30" />;
+        case 'word': return <FaFileWord color="#007aff" />;
+        case 'excel': return <FaFileExcel color="#34c759" />;
+        case 'ppt': return <FaFilePowerpoint color="#ff9500" />;
+        case 'code': return <FaFileCode color="#5856d6" />;
+        case 'zip': return <FaFileArchive color="#ffcc00" />;
+        case 'video': return <FaFileVideo color="#5ac8fa" />;
+        case 'audio': return <FaFileAudio color="#ff2d55" />;
+        case 'csv': return <FaFileCsv color="#34c759" />;
+        case 'img': return <FaFileImage color="#af52de" />;
+        default: return <FaFileAlt color="#86868b" />;
+    }
+  }
 
   const openContactModal = (contact = null) => {
       if(contact) {
@@ -702,26 +776,27 @@ export default function Dasboard() {
             <div style={{marginTop: 20}}>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
                     <h3 style={{fontSize: 24, fontWeight: 700, color: '#1d1d1f'}}>Mis Archivos</h3>
-                    <button className="auth-button" style={{width: 'auto', padding: '0 20px', height: 40, fontSize: 14}}>
+                    
+                    {/* Input Oculto para Carga Real */}
+                    <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        style={{display: 'none'}} 
+                        multiple 
+                        onChange={handleFileUpload} 
+                    />
+                    <button className="auth-button" style={{width: 'auto', padding: '0 20px', height: 40, fontSize: 14}} onClick={() => fileInputRef.current.click()}>
                         <FaCloudDownloadAlt style={{marginRight: 8}}/> Subir Archivo
                     </button>
                 </div>
                 <div className="files-grid">
-                    {[
-                        { name: "Contrato_Final.pdf", type: "pdf", size: "2.4 MB" },
-                        { name: "Logo_Vector.svg", type: "img", size: "1.1 MB" },
-                        { name: "Notas_Reunion.txt", type: "doc", size: "12 KB" },
-                        { name: "Presupuesto_2024.pdf", type: "pdf", size: "4.5 MB" },
-                        { name: "Banner_Marketing.png", type: "img", size: "3.2 MB" },
-                        { name: "Manual_Usuario.pdf", type: "pdf", size: "8.1 MB" },
-                    ].map((file, i) => (
+                    {files.map((file, i) => (
                         <div key={i} className="file-card">
-                            <div className="file-icon">
-                                {file.type === 'pdf' ? <FaFilePdf color="#ff3b30" /> : 
-                                 file.type === 'img' ? <FaFileImage color="#007aff" /> : <FaFileAlt color="#86868b" />}
+                            <div className="file-icon" style={{fontSize: 42, marginBottom: 12}}>
+                                {getFileIcon(file.type)}
                             </div>
                             <div className="file-name">{file.name}</div>
-                            <div className="file-meta">{file.size} • Editado hoy</div>
+                            <div className="file-meta">{file.size} • {file.date}</div>
                         </div>
                     ))}
                 </div>
@@ -730,24 +805,41 @@ export default function Dasboard() {
 
         {/* --- VISTA: AJUSTES (iOS Style) --- */}
         {activeSidebar === 'settings' && (
-            <div style={{marginTop: 20, maxWidth: 600}}>
-                <div className="settings-panel">
-                    <h3 style={{marginBottom: 25, fontSize: 20}}>Preferencias del Sistema</h3>
-                    
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid #eee'}}>
-                        <div>
-                            <div style={{fontWeight: 600}}>Modo Oscuro</div>
-                            <div style={{fontSize: 13, color: '#888'}}>Cambiar la apariencia del dashboard.</div>
+            <div style={{marginTop: 20}}>
+                <h2 style={{fontSize: 28, fontWeight: 700, marginBottom: 10, color: '#1d1d1f'}}>Ajustes</h2>
+                <p style={{color: '#86868b', marginBottom: 30}}>Personaliza tu experiencia en System24.</p>
+
+                <div className="settings-grid">
+                    <div className="setting-card" onClick={() => { setActiveSettingTab('general'); setIsSettingsModalOpen(true); }}>
+                        <div className="setting-icon"><FaSlidersH /></div>
+                        <div className="setting-info">
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>General</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Idioma, notificaciones y sincronización.</p>
                         </div>
-                        <FaToggleOff size={28} color="#d1d1d6" style={{cursor: 'pointer'}} />
+                    </div>
+                    
+                    <div className="setting-card" onClick={() => { setActiveSettingTab('appearance'); setIsSettingsModalOpen(true); }}>
+                        <div className="setting-icon"><FaPalette /></div>
+                        <div className="setting-info">
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Apariencia</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Temas, colores y densidad.</p>
+                        </div>
                     </div>
 
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid #eee'}}>
-                        <div>
-                            <div style={{fontWeight: 600}}>Notificaciones</div>
-                            <div style={{fontSize: 13, color: '#888'}}>Recibir alertas de tareas.</div>
+                    <div className="setting-card" onClick={() => { setActiveSettingTab('shortcuts'); setIsSettingsModalOpen(true); }}>
+                        <div className="setting-icon"><FaKeyboard /></div>
+                        <div className="setting-info">
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Atajos de Teclado</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Teclas rápidas y productividad.</p>
                         </div>
-                        <FaToggleOn size={28} color="#34c759" style={{cursor: 'pointer'}} />
+                    </div>
+
+                    <div className="setting-card">
+                        <div className="setting-icon"><FaShieldAlt /></div>
+                        <div className="setting-info">
+                            <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 4, color:'#1d1d1f'}}>Seguridad</h4>
+                            <p style={{fontSize: 13, color:'#86868b'}}>Contraseña y sesiones.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1055,6 +1147,117 @@ export default function Dasboard() {
                   </form>
               </div>
           </div>
+      )}
+
+      {/* 6. MODAL DE AJUSTES AVANZADO (PRO) */}
+      {isSettingsModalOpen && (
+        <div className="modal-overlay">
+            <div className="modal-content-large" style={{width: 800, padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column'}}>
+                
+                {/* Header Modal */}
+                <div style={{padding: '25px 30px', borderBottom: '1px solid #e5e5ea', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div>
+                        <h2 style={{fontSize: 22, fontWeight: 700, margin: 0}}>Configuración del Sistema</h2>
+                        <p style={{color: '#86868b', fontSize: 14, margin: '5px 0 0'}}>Ajusta el comportamiento avanzado del dashboard.</p>
+                    </div>
+                    <button onClick={() => setIsSettingsModalOpen(false)} style={{background:'none', border:'none', cursor:'pointer', color:'#86868b'}}><FaTimes size={24}/></button>
+                </div>
+
+                <div style={{display: 'flex', flex: 1, minHeight: 450}}>
+                    {/* Sidebar Tabs */}
+                    <div style={{width: 220, background: '#fbfbfd', borderRight: '1px solid #e5e5ea', padding: '20px 15px'}}>
+                        {[
+                            {id: 'general', label: 'General', icon: <FaSlidersH size={14}/>},
+                            {id: 'appearance', label: 'Apariencia', icon: <FaPalette size={14}/>},
+                            {id: 'shortcuts', label: 'Atajos (Teclado)', icon: <FaKeyboard size={14}/>},
+                        ].map(tab => (
+                            <div 
+                                key={tab.id}
+                                onClick={() => setActiveSettingTab(tab.id)}
+                                style={{
+                                    padding: '12px 15px', borderRadius: 10, cursor: 'pointer', marginBottom: 5, fontSize: 14,
+                                    background: activeSettingTab === tab.id ? 'white' : 'transparent',
+                                    color: activeSettingTab === tab.id ? '#1d1d1f' : '#86868b',
+                                    fontWeight: activeSettingTab === tab.id ? 600 : 500,
+                                    boxShadow: activeSettingTab === tab.id ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
+                                    display: 'flex', alignItems: 'center', gap: 10
+                                }}
+                            >
+                                {tab.icon} {tab.label}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Content Area */}
+                    <div style={{flex: 1, padding: 30, overflowY: 'auto', maxHeight: 500}}>
+                        
+                        {activeSettingTab === 'general' && (
+                            <div>
+                                <div className="settings-row">
+                                    <div>
+                                        <h5 style={{fontSize: 15, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>Historial de Versiones (Control Z)</h5>
+                                        <p style={{fontSize: 13, color: '#86868b', maxWidth: 350}}>Permitir deshacer acciones en notas y kanban hasta 50 pasos atrás.</p>
+                                    </div>
+                                    <FaToggleOn size={32} color="#34c759" style={{cursor:'pointer'}}/>
+                                </div>
+                                <div className="settings-row">
+                                    <div>
+                                        <h5 style={{fontSize: 15, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>Autoguardado Inteligente</h5>
+                                        <p style={{fontSize: 13, color: '#86868b', maxWidth: 350}}>Guardar cambios en segundo plano mientras escribes.</p>
+                                    </div>
+                                    <FaToggleOn size={32} color="#34c759" style={{cursor:'pointer'}}/>
+                                </div>
+                                <div className="settings-row">
+                                    <div>
+                                        <h5 style={{fontSize: 15, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>Notificaciones de Escritorio</h5>
+                                        <p style={{fontSize: 13, color: '#86868b', maxWidth: 350}}>Recibir alertas flotantes cuando la app está minimizada.</p>
+                                    </div>
+                                    <FaToggleOff size={32} color="#d1d1d6" style={{cursor:'pointer'}}/>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSettingTab === 'shortcuts' && (
+                            <div>
+                                <div style={{background: '#f5faff', padding: 15, borderRadius: 10, fontSize: 13, color: '#007aff', marginBottom: 25, display: 'flex', alignItems: 'center', gap: 10}}>
+                                    <FaCheck /> Todas las funciones de teclado están activas.
+                                </div>
+
+                                {[
+                                    {label: 'Deshacer acción', keys: ['Ctrl', 'Z']},
+                                    {label: 'Rehacer acción', keys: ['Ctrl', 'Y']},
+                                    {label: 'Nueva Nota', keys: ['Ctrl', 'N']},
+                                    {label: 'Buscar en Dashboard', keys: ['Ctrl', 'K']},
+                                    {label: 'Cerrar Ventana', keys: ['Esc']},
+                                ].map((sc, i) => (
+                                    <div key={i} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #f9f9f9'}}>
+                                        <span style={{fontSize: 14, fontWeight: 500, color: '#1d1d1f'}}>{sc.label}</span>
+                                        <div style={{display: 'flex', gap: 5}}>
+                                            {sc.keys.map((k, j) => (
+                                                <span key={j} className="kbd">{k}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {activeSettingTab === 'appearance' && (
+                            <div style={{textAlign: 'center', color: '#86868b', paddingTop: 40}}>
+                                <FaPalette size={40} style={{marginBottom: 10, opacity: 0.3}} />
+                                <p>Próximamente más temas visuales.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Footer Modal */}
+                <div style={{padding: '20px 30px', borderTop: '1px solid #e5e5ea', display: 'flex', justifyContent: 'flex-end', gap: 15, background: '#fbfbfd'}}>
+                    <button className="auth-button" style={{width: 'auto', padding: '0 25px', height: 40, fontSize: 14, background: 'white', color: '#1d1d1f', border: '1px solid #d2d2d7', boxShadow:'none'}} onClick={() => setIsSettingsModalOpen(false)}>Cancelar</button>
+                    <button className="auth-button" style={{width: 'auto', padding: '0 30px', height: 40, fontSize: 14, background: '#007aff'}} onClick={() => { toast.success("Preferencias guardadas"); setIsSettingsModalOpen(false); }}>Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
       )}
 
     </div>
