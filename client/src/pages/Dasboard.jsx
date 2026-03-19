@@ -11,7 +11,8 @@ import {
   FaAlignLeft, FaImage, FaExchangeAlt, FaPhone, FaStar, FaUserPlus,
   FaSlidersH, FaPalette, FaKeyboard, FaShieldAlt, FaCheck, FaUndo,
   FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileCode, FaFileArchive, FaFileVideo, FaFileAudio, FaFileCsv,
-  FaUser, FaCreditCard, FaGlobe, FaMoon, FaSun, FaDesktop, FaLock
+  FaUser, FaCreditCard, FaGlobe, FaMoon, FaSun, FaDesktop, FaLock,
+  FaBook, FaLifeRing, FaCommentDots, FaVideo, FaChevronDown, FaChevronUp, FaHeadset, FaArrowRight
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -39,6 +40,8 @@ export default function Dasboard() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [activeSettingTab, setActiveSettingTab] = useState('general');
   const [themeMode, setThemeMode] = useState('light');
+  const [activeFaq, setActiveFaq] = useState(null);
+  const toggleFaq = (i) => setActiveFaq(activeFaq === i ? null : i);
   
   // --- Estado de Archivos (File Explorer) ---
   const fileInputRef = useRef(null);
@@ -845,6 +848,82 @@ export default function Dasboard() {
                     </div>
                 </div>
             </div>
+        )}
+
+        {/* --- VISTA: AYUDA (NUEVO) --- */}
+        {activeSidebar === 'help' && (
+          <div style={{marginTop: 20, animation: 'fadeIn 0.5s ease'}}>
+            {/* Help Hero */}
+            <div className="help-hero">
+               <h2 style={{fontSize: 32, fontWeight: 700, marginBottom: 10}}>¿Cómo podemos ayudarte?</h2>
+               <p style={{fontSize: 16, opacity: 0.9}}>Busca guías, tutoriales o contacta con soporte.</p>
+               <div style={{position: 'relative', display: 'inline-block', width: '100%', maxWidth: 500}}>
+                  <FaSearch style={{position: 'absolute', left: 20, top: 35, color: '#007aff'}} />
+                  <input className="help-search-input" placeholder="Buscar un problema..." style={{paddingLeft: 50, color: '#1d1d1f'}} />
+               </div>
+            </div>
+
+            {/* Quick Links Grid */}
+            <div className="help-grid">
+               {[
+                 {icon: <FaBook />, title: 'Documentación', desc: 'Guías paso a paso'},
+                 {icon: <FaVideo />, title: 'Video Tutoriales', desc: 'Aprende viendo'},
+                 {icon: <FaLifeRing />, title: 'Centro de Ayuda', desc: 'Base de conocimiento'},
+                 {icon: <FaCommentDots />, title: 'Foro Comunidad', desc: 'Pregunta a otros'},
+               ].map((item, i) => (
+                 <div key={i} className="help-card">
+                    <div className="help-icon-large">{item.icon}</div>
+                    <h4 style={{fontSize: 16, fontWeight: 600, marginBottom: 5, color: '#1d1d1f'}}>{item.title}</h4>
+                    <p style={{fontSize: 13, color: '#86868b', marginBottom: 15}}>{item.desc}</p>
+                    <div style={{display:'flex', justifyContent:'center', color: '#007aff', fontSize: 12, fontWeight: 600, alignItems: 'center', gap: 5}}>
+                       Ver más <FaArrowRight size={10} />
+                    </div>
+                 </div>
+               ))}
+            </div>
+
+            {/* FAQ Section */}
+            <h3 style={{fontSize: 20, fontWeight: 700, color: '#1d1d1f', marginBottom: 20}}>Preguntas Frecuentes</h3>
+            <div className="faq-section">
+               {[
+                 {q: '¿Cómo restablezco mi contraseña?', a: 'Ve a Ajustes > Seguridad y haz clic en "Cambiar Contraseña". Te enviaremos un correo de confirmación.'},
+                 {q: '¿Puedo exportar mis reportes?', a: 'Sí, en la sección de Reportes, encontrarás un botón de exportar en la esquina superior derecha de cada gráfico.'},
+                 {q: '¿Cómo añado un nuevo miembro al equipo?', a: 'Solo los administradores pueden añadir miembros. Ve a Ajustes > Equipo e introduce el correo electrónico del nuevo usuario.'},
+                 {q: '¿Dónde veo mis facturas?', a: 'Tus facturas mensuales están disponibles para descargar en Ajustes > Facturación.'}
+               ].map((item, i) => (
+                 <div key={i} className="faq-item">
+                    <div className="faq-question" onClick={() => toggleFaq(i)}>
+                       {item.q}
+                       {activeFaq === i ? <FaChevronUp size={14} color="#007aff" /> : <FaChevronDown size={14} color="#86868b" />}
+                    </div>
+                    {activeFaq === i && <div className="faq-answer">{item.a}</div>}
+                 </div>
+               ))}
+            </div>
+
+            {/* Contact Support */}
+            <div style={{marginTop: 40}}>
+               <h3 style={{fontSize: 20, fontWeight: 700, color: '#1d1d1f', marginBottom: 20}}>¿Aún necesitas ayuda?</h3>
+               <div className="settings-grid"> {/* Reusing grid class for responsive layout */}
+                  <div className="support-box">
+                     <div className="help-icon-large" style={{marginBottom:0, width: 50, height: 50, fontSize: 20}}><FaHeadset /></div>
+                     <div>
+                        <h4 style={{fontSize: 16, fontWeight: 600, color: '#1d1d1f'}}>Soporte Técnico</h4>
+                        <p style={{fontSize: 13, color: '#86868b'}}>Chat en vivo 24/7 con nuestros expertos.</p>
+                     </div>
+                     <FaArrowRight style={{marginLeft: 'auto', color: '#d2d2d7'}} />
+                  </div>
+                  <div className="support-box">
+                     <div className="help-icon-large" style={{marginBottom:0, width: 50, height: 50, fontSize: 20, background: '#eaffea', color: '#34c759'}}><FaEnvelope /></div>
+                     <div>
+                        <h4 style={{fontSize: 16, fontWeight: 600, color: '#1d1d1f'}}>Enviar Email</h4>
+                        <p style={{fontSize: 13, color: '#86868b'}}>Respuesta en menos de 24 horas.</p>
+                     </div>
+                     <FaArrowRight style={{marginLeft: 'auto', color: '#d2d2d7'}} />
+                  </div>
+               </div>
+            </div>
+          </div>
         )}
 
         {/* --- VISTAS VACÍAS (Placeholder) --- */}
