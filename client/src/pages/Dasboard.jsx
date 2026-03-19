@@ -8,7 +8,7 @@ import {
   FaQuestionCircle, FaStickyNote, FaMapMarkerAlt, FaEnvelope, 
   FaCheckDouble, FaArrowUp, FaFilePdf, FaFileImage, FaFileAlt, 
   FaCloudDownloadAlt, FaToggleOn, FaToggleOff, FaChevronLeft, FaChevronRight,
-  FaAlignLeft, FaImage, FaExchangeAlt
+  FaAlignLeft, FaImage, FaExchangeAlt, FaPhone, FaStar, FaUserPlus
 } from "react-icons/fa";
 
 export default function Dasboard() {
@@ -24,6 +24,15 @@ export default function Dasboard() {
   const [selectedTasks, setSelectedTasks] = useState([]); // Para checkboxes
   const [dragOverCol, setDragOverCol] = useState(""); // Estado visual Drag & Drop
   const [currentDate, setCurrentDate] = useState(new Date()); // Estado del Calendario
+  const [contacts, setContacts] = useState([
+    { id: 1, name: "Ana López", role: "Diseñadora UX", phone: "55 1234 5678", email: "ana@design.com", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80", isFavorite: true },
+    { id: 2, name: "David Miller", role: "Full Stack Dev", phone: "55 9876 5432", email: "david@code.com", image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&auto=format&fit=crop&q=80", isFavorite: false },
+    { id: 3, name: "Sarah Connor", role: "Project Manager", phone: "55 5678 1234", email: "sarah@skynet.com", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=80", isFavorite: true },
+    { id: 4, name: "James Bond", role: "Seguridad", phone: "00 0000 0007", email: "james@mi6.uk", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80", isFavorite: false },
+  ]);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: "", role: "", phone: "", email: "", image: "" });
+  const [editingContactId, setEditingContactId] = useState(null);
   
   // --- Estado de Datos (Simulando Base de Datos Compleja) ---
   const [tasks, setTasks] = useState([
@@ -111,6 +120,28 @@ export default function Dasboard() {
     closeModal();
   };
 
+  // --- CRUD Contactos ---
+  const handleSaveContact = (e) => {
+      e.preventDefault();
+      if(!contactForm.name) return toast.error("El nombre es requerido");
+      
+      if(editingContactId) {
+          setContacts(contacts.map(c => c.id === editingContactId ? {...c, ...contactForm} : c));
+          toast.success("Contacto actualizado");
+      } else {
+          setContacts([...contacts, {...contactForm, id: Date.now(), isFavorite: false}]);
+          toast.success("Contacto guardado");
+      }
+      setIsContactModalOpen(false);
+  };
+
+  const handleDeleteContact = (id) => {
+      if(window.confirm("¿Eliminar contacto de tu lista?")) {
+          setContacts(contacts.filter(c => c.id !== id));
+          toast.success("Contacto eliminado");
+      }
+  };
+
   const handleDelete = (id) => {
     if(window.confirm("¿Eliminar esta nota permanentemente?")) {
       setTasks(tasks.filter(t => t.id !== id));
@@ -148,6 +179,17 @@ export default function Dasboard() {
       setFormData(initialForm);
     }
     setIsModalOpen(true);
+  };
+
+  const openContactModal = (contact = null) => {
+      if(contact) {
+          setEditingContactId(contact.id);
+          setContactForm(contact);
+      } else {
+          setEditingContactId(null);
+          setContactForm({ name: "", role: "", phone: "", email: "", image: "" });
+      }
+      setIsContactModalOpen(true);
   };
 
   const closeModal = () => setIsModalOpen(false);
@@ -245,10 +287,10 @@ export default function Dasboard() {
         <header className="db-header" style={{marginBottom: 10, paddingBottom: 10, borderBottom: '1px solid #e5e5ea'}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
             <button className="db-mobile-toggle" onClick={() => setIsSidebarOpen(true)} style={{marginRight: 5}}>
-                <FaBars size={18} color="#1d1d1f" />
+                <FaBars size={22} color="#1d1d1f" />
             </button>
             <div className="db-welcome">
-                <h1 style={{fontSize: 20, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>Panel</h1>
+                <h1 style={{fontSize: 24, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>Panel</h1>
             </div>
 
             {/* View Switcher Integrated */}
@@ -257,45 +299,45 @@ export default function Dasboard() {
                     onClick={() => setViewMode('kanban')}
                     style={{
                         background: viewMode === 'kanban' ? 'white' : 'transparent', 
-                        border: 'none', padding: '4px 8px', borderRadius: 6, cursor: 'pointer',
+                        border: 'none', padding: '6px 10px', borderRadius: 6, cursor: 'pointer',
                         boxShadow: viewMode === 'kanban' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex'
                     }}
                 >
-                    <FaThLarge size={12} />
+                    <FaThLarge size={14} />
                 </button>
                 <button 
                     onClick={() => setViewMode('table')}
                     style={{
                         background: viewMode === 'table' ? 'white' : 'transparent', 
-                        border: 'none', padding: '4px 8px', borderRadius: 6, cursor: 'pointer',
+                        border: 'none', padding: '6px 10px', borderRadius: 6, cursor: 'pointer',
                         boxShadow: viewMode === 'table' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex'
                     }}
                 >
-                    <FaList size={12} />
+                    <FaList size={14} />
                 </button>
             </div>
           </div>
-          
+
           <div style={{display: 'flex', gap: 10, alignItems: 'center'}}>
             <div className="db-search-container" style={{position: 'relative'}}>
-                <FaSearch style={{position: 'absolute', left: 10, top: 9, color: '#86868b', fontSize: 12}} />
+                <FaSearch style={{position: 'absolute', left: 12, top: 10, color: '#86868b', fontSize: 14}} />
                 <input 
                     type="text" 
                     className="apple-search" 
                     placeholder="Buscar..." 
-                    style={{paddingLeft: 30, width: 160, border: '1px solid #d2d2d7', background: '#fff', borderRadius: 8, height: 32, fontSize: 13}}
+                    style={{paddingLeft: 34, width: 200, border: '1px solid #d2d2d7', background: '#fff', borderRadius: 8, height: 36, fontSize: 14}}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
             
-            <button className="auth-button" style={{width: 'auto', padding: '0 12px', height: 32, fontSize: 12, marginTop: 0}} onClick={() => openModal()}>
+            <button className="auth-button" style={{width: 'auto', padding: '0 16px', height: 36, fontSize: 13, marginTop: 0}} onClick={() => openModal()}>
                 <FaPlus style={{marginRight: 4}}/> Crear
             </button>
 
-            <div className="db-profile" style={{padding: '4px 8px', gap: 8, height: 32}}>
-                <FaBell color="#555" size={14} />
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="User" style={{width: 24, height: 24, borderRadius: '50%'}} />
+            <div className="db-profile" style={{padding: '4px 8px', gap: 8, height: 36}}>
+                <FaBell color="#555" size={16} />
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="User" style={{width: 28, height: 28, borderRadius: '50%'}} />
             </div>
           </div>
         </header>
@@ -759,6 +801,74 @@ export default function Dasboard() {
             </div>
         )}
 
+        {/* --- VISTA: CONTACTOS (Nueva) --- */}
+        {activeSidebar === 'contacts' && (
+            <div style={{marginTop: 20, animation: 'fadeIn 0.5s ease'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 25}}>
+                    <div>
+                        <h3 style={{fontSize: 24, fontWeight: 700, color: '#1d1d1f', margin: 0}}>Contactos</h3>
+                        <p style={{color: '#86868b', fontSize: 14, marginTop: 4}}>{contacts.length} personas en tu lista</p>
+                    </div>
+                    <button className="auth-button" style={{width: 'auto', padding: '0 20px', height: 40, fontSize: 14, display:'flex', alignItems:'center', gap: 8}} onClick={() => openContactModal()}>
+                        <FaUserPlus /> Agregar
+                    </button>
+                </div>
+
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 20}}>
+                    {contacts.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase())).map(contact => (
+                        <div key={contact.id} style={{
+                            background: 'white', borderRadius: 16, border: '1px solid #e5e5ea', padding: 25,
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+                            position: 'relative', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', transition: 'transform 0.2s'
+                        }}
+                        onMouseOver={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+                        onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            {/* Favorite Badge */}
+                            {contact.isFavorite && (
+                                <div style={{position: 'absolute', top: 15, right: 15, color: '#ffcc00'}}>
+                                    <FaStar />
+                                </div>
+                            )}
+
+                            {/* Avatar */}
+                            <div style={{width: 80, height: 80, borderRadius: '50%', overflow: 'hidden', marginBottom: 15, border: '3px solid #f5f5f7'}}>
+                                <img src={contact.image || "https://via.placeholder.com/150"} alt={contact.name} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                            </div>
+
+                            {/* Info */}
+                            <h4 style={{fontSize: 18, fontWeight: 700, color: '#1d1d1f', margin: '0 0 5px 0'}}>{contact.name}</h4>
+                            <span style={{fontSize: 13, color: '#007aff', background: 'rgba(0,122,255,0.1)', padding: '2px 10px', borderRadius: 10, fontWeight: 600, marginBottom: 15}}>
+                                {contact.role}
+                            </span>
+
+                            <div style={{width: '100%', borderTop: '1px solid #f5f5f7', paddingTop: 15, marginTop: 'auto'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, color: '#86868b', fontSize: 14, marginBottom: 5}}>
+                                    <FaPhone size={12} /> {contact.phone}
+                                </div>
+                                <div style={{fontSize: 13, color: '#aaa', marginBottom: 15}}>{contact.email}</div>
+                                
+                                <div style={{display: 'flex', justifyContent: 'center', gap: 12}}>
+                                    <button onClick={() => openContactModal(contact)} style={{
+                                        padding: '8px 16px', borderRadius: 8, border: '1px solid #e5e5ea', background: 'white', 
+                                        color: '#1d1d1f', cursor: 'pointer', fontSize: 13, fontWeight: 500, transition: 'all 0.2s'
+                                    }}>
+                                        Editar
+                                    </button>
+                                    <button onClick={() => handleDeleteContact(contact.id)} style={{
+                                        padding: '8px', borderRadius: 8, border: '1px solid #ffebeb', background: '#fff5f5', 
+                                        color: '#ff3b30', cursor: 'pointer', display:'flex', alignItems:'center'
+                                    }}>
+                                        <FaTrash size={14} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
+
       </main>
 
       {/* 4. MODAL CRUD COMPLEJO */}
@@ -908,6 +1018,43 @@ export default function Dasboard() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* 5. MODAL DE CONTACTOS (NUEVO) */}
+      {isContactModalOpen && (
+          <div className="modal-overlay">
+              <div className="modal-content-compact">
+                  <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
+                      <h2 style={{fontSize: 20, fontWeight: 700, color: '#1d1d1f', margin: 0}}>
+                          {editingContactId ? 'Editar Contacto' : 'Nuevo Contacto'}
+                      </h2>
+                      <button onClick={() => setIsContactModalOpen(false)} style={{background:'none', border:'none', cursor:'pointer', color:'#86868b'}}><FaTimes size={20}/></button>
+                  </div>
+                  
+                  <form onSubmit={handleSaveContact}>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: 15}}>
+                          <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10}}>
+                              <div style={{width: 80, height: 80, borderRadius: '50%', background: '#f5f5f7', overflow: 'hidden', border: '1px dashed #d2d2d7', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                  {contactForm.image ? <img src={contactForm.image} alt="preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : <FaImage size={24} color="#ccc" />}
+                              </div>
+                          </div>
+                          
+                          <div><label className="apple-label">Nombre Completo</label><input className="apple-field" value={contactForm.name} onChange={e => setContactForm({...contactForm, name: e.target.value})} placeholder="Ej: Ana López" autoFocus /></div>
+                          <div><label className="apple-label">Puesto / Rol</label><input className="apple-field" value={contactForm.role} onChange={e => setContactForm({...contactForm, role: e.target.value})} placeholder="Ej: Diseñadora" /></div>
+                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 15}}>
+                              <div><label className="apple-label">Teléfono</label><input className="apple-field" value={contactForm.phone} onChange={e => setContactForm({...contactForm, phone: e.target.value})} placeholder="55..." /></div>
+                              <div><label className="apple-label">Foto (URL)</label><input className="apple-field" value={contactForm.image} onChange={e => setContactForm({...contactForm, image: e.target.value})} placeholder="https://..." /></div>
+                          </div>
+                          <div><label className="apple-label">Email</label><input className="apple-field" type="email" value={contactForm.email} onChange={e => setContactForm({...contactForm, email: e.target.value})} placeholder="correo@ejemplo.com" /></div>
+                      </div>
+
+                      <div style={{display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 25, paddingTop: 20, borderTop: '1px solid #e5e5ea'}}>
+                          <button type="button" onClick={() => setIsContactModalOpen(false)} className="auth-button" style={{background: '#f5f5f7', color: '#1d1d1f', width: 'auto', padding: '0 20px', boxShadow:'none', height: 40, fontSize: 14}}>Cancelar</button>
+                          <button type="submit" className="auth-button" style={{width: 'auto', padding: '0 25px', background: '#007aff', height: 40, fontSize: 14}}>Guardar Contacto</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
       )}
 
     </div>
