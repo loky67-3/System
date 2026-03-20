@@ -7,7 +7,10 @@ const { test, registerUser, loginUser } = require('../controllers/authController
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        origin: [
+            'http://localhost:5173', // Para seguir trabajando en local
+            'https://system24.onrender.com'  // ¡IMPORTANTE! Reemplaza esto con la URL de tu frontend en Render
+        ]
     })
 )
 

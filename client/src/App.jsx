@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast'
 
 
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://ventas-nb80.onrender.com";
 axios.defaults.withCredentials = true
 
 
