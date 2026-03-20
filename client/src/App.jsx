@@ -21,7 +21,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-    {location.pathname !== "/dashboard" && <Navbar/>}
+    {location.pathname !== "/dashboard" && location.pathname !== "/login" && location.pathname !== "/register" && <Navbar/>}
     <Toaster position='bottom-right' toastOptions={{duration: 2000}}/>
     <Routes>
       <Route path="/" element={<Home/>}/>
