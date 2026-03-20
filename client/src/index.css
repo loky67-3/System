@@ -702,12 +702,12 @@ body {
 .auth-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center; /* Centrado verticalmente estilo Apple ID */
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #f5f5f7;
-  padding-top: 10vh;
+  background-color: #f5f5f7; /* Gris sistema Apple */
+  padding: 20px;
 }
 
 /* [AQUÍ ESTÁN LOS ESTILOS DE LOGIN] */
@@ -715,29 +715,32 @@ body {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 400px;
-  padding: 40px;
+  max-width: 460px; /* Ancho estándar de login Apple */
+  padding: 50px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   
   /* ESTILO APPLE ORIGINAL: Fondo blanco, Borde gris, Sin Sombra */
   background-color: #ffffff;
   border: none;
-  border-radius: 18px;
-  
+  border-radius: 24px; /* Bordes más redondeados y suaves */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06); /* Sombra difusa elegante */
   backdrop-filter: none;
 }
 
 /* Ajuste Responsive para Login */
-@media (max-width: 850px) {
-  .auth-container {
-    padding-top: 20px; /* Menos espacio arriba en móvil */
-    align-items: center; /* Centrar verticalmente en móvil */
+@media (max-width: 600px) {
+  .auth-card {
+    background-color: transparent; /* En móvil se funde con el fondo */
+    box-shadow: none;
+    padding: 20px 0;
   }
-  .instagram-box {
-    background-color: transparent; /* Opcional: hacer transparente en móvil o mantener blanco */
-    border: 1px solid #dbdbdb; /* Mantener borde o quitarlo según gusto, aquí lo mantengo igual que desktop */
+  .auth-container {
+    background-color: #ffffff; /* Fondo blanco completo estilo App nativa */
+    align-items: flex-start;
+    padding-top: 60px;
   }
 }
 
@@ -782,18 +785,19 @@ body {
 }
 
 .auth-header h1 {
-  font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size: 34px;
+  font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #1d1d1f;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.01em;
 }
 
 .auth-header p {
-  font-size: 16px;
+  font-size: 17px;
   color: #86868b;
   font-weight: 400;
+  line-height: 1.4;
 }
 
 .auth-form {
@@ -805,43 +809,51 @@ body {
 
 .auth-input {
   width: 100%;
-  height: 48px;
-  padding: 0 18px;
+  height: 56px; /* Más alto para mejor toque en móvil */
+  padding: 0 20px;
   font-size: 17px;
   border: 1px solid #d2d2d7;
-  border-radius: 12px;
+  border-radius: 12px; /* Redondeado medio */
   outline: none;
   background: #fff;
   color: #1d1d1f;
   transition: all 0.2s ease;
+  margin-bottom: 4px; /* Espacio extra si no hay gap en form */
 }
 
 .auth-input:focus {
-  border-color: #0071e3;
-  box-shadow: 0 0 0 4px rgba(0,113,227,0.1);
+  border-color: #0071e3; /* Azul Apple */
+  box-shadow: 0 0 0 4px rgba(0,113,227,0.15); /* Glow azul suave */
 }
 
 .auth-button {
   width: 100%;
-  height: 48px;
-  margin-top: 10px;
-  background-color: #1d1d1f; /* Botón negro solido estilo Apple */
+  height: 54px;
+  margin-top: 20px;
+  background-color: #0071e3; /* Azul Sistema Apple */
   color: white;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
-  border-radius: 28px; /* Redondo completo */
+  border-radius: 12px; /* Consistente con inputs */
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
 }
 
 .auth-button:hover {
-  background-color: #3a3a3c;
-  transform: scale(1.02);
+  background-color: #0077ed; /* Azul más brillante al hover */
+  transform: translateY(-1px); /* Ligero levantamiento */
 }
 
 .auth-button:active {
-  transform: scale(0.98);
+  transform: scale(0.99) translateY(0); /* Efecto de presión */
+  background-color: #0066cc; /* Azul más oscuro al presionar */
+}
+
+.auth-button:disabled {
+  background-color: #a0cff8; /* Azul claro y desaturado */
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Animación Slide Down para Modales */
@@ -1530,153 +1542,6 @@ body {
   background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 50%);
 }
 
-/* --- RESPONSIVE DASHBOARD --- */
-@media (max-width: 900px) {
-  .dashboard-layout {
-    position: relative;
-  }
-
-  /* Sidebar Oculto por defecto */
-  .db-sidebar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    transform: translateX(-100%);
-    box-shadow: 5px 0 25px rgba(0,0,0,0.1);
-  }
-
-  .db-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .db-sidebar-overlay { display: block; }
-
-  .db-header-mobile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  .desktop-only-logo { display: none; }
-  .db-close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #86868b; }
-
-  .db-mobile-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-
-  .db-content {
-    padding: 20px;
-  }
-
-  .db-welcome h1 { font-size: 24px; }
-  .db-search-container { display: none; } /* Ocultar búsqueda en móvil para ahorrar espacio */
-  .db-username { display: none; }
-
-  .dashboard-grid { grid-template-columns: 1fr; } /* 1 Columna widgets */
-  
-  .kanban-board {
-    /* Mantener scroll horizontal es mejor UX en móvil para Kanban */
-    padding-bottom: 10px;
-  }
-}
-
-/* --- PROFESSIONAL CALENDAR STYLES --- */
-
-.calendar-header-pro {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.calendar-nav-buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.calendar-nav-buttons button {
-  background: white;
-  border: 1px solid #d2d2d7;
-  border-radius: 8px;
-  padding: 6px 12px;
-  cursor: pointer;
-  color: #1d1d1f;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.calendar-nav-buttons button:hover {
-  background: #f5f5f7;
-  border-color: #86868b;
-}
-
-.calendar-container-pro {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid #e5e5ea;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-  flex: 1; /* Ocupa el resto de la altura */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.calendar-week-header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  border-bottom: 1px solid #e5e5ea;
-  background: #fafafa;
-}
-
-.day-name {
-  padding: 15px;
-  text-align: center;
-  font-weight: 600;
-  color: #86868b;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.calendar-grid-pro {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: minmax(120px, 1fr); /* Altura mínima de celda */
-  flex: 1;
-}
-
-.calendar-day {
-  border-right: 1px solid #f5f5f7;
-  border-bottom: 1px solid #f5f5f7;
-  padding: 10px;
-  position: relative;
-  transition: background 0.2s;
-}
-.calendar-day:hover { background: #fbfbfd; }
-.calendar-day.empty { background: #f9f9f9; }
-
-.day-number { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-.calendar-day.today .day-number { background: #ff3b30; color: white; }
-
-.cal-event {
-  font-size: 11px; padding: 4px 8px; border-radius: 6px; margin-bottom: 4px; font-weight: 500;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.cal-event.blue { background: rgba(0,122,255,0.15); color: #007aff; }
-.cal-event.red { background: rgba(255,59,48,0.15); color: #ff3b30; }
-.cal-event.green { background: rgba(52,199,89,0.15); color: #34c759; }
-
 /* --- SETTINGS PRO STYLES --- */
 .settings-grid {
   display: grid;
@@ -1886,189 +1751,3 @@ body {
   background: white; padding: 25px; border-radius: 16px; border: 1px solid #e5e5ea; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.2s;
 }
 .support-box:hover { border-color: #34c759; transform: scale(1.02); }
-
-/* --- INSTAGRAM LOGIN CLONE STYLES --- */
-.instagram-layout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #fff;
-  padding: 20px;
-  gap: 50px;
-}
-
-.instagram-left-section {
-  display: none;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 450px;
-}
-
-.left-hero-image {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.layout-divider {
-  display: none;
-  width: 1px;
-  height: 500px;
-  background-color: #dbdbdb;
-  display: none; /* Oculto en móvil por defecto */
-}
-
-@media (min-width: 850px) {
-  .instagram-left-section { display: flex; }
-  .layout-divider { display: block; }
-  .auth-container { padding-top: 10vh; } /* Restaurar padding original en desktop */
-}
-
-.instagram-right-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  max-width: 400px; /* En móvil ocupa 100% hasta 400px */
-  flex-shrink: 0;
-}
-
-.instagram-box {
-  padding: 30px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.instagram-logo {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 30px;
-  margin-top: 10px;
-  letter-spacing: -1px;
-}
-
-.instagram-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.instagram-field input {
-  width: 100%;
-  background: #fafafa;
-  border: 1px solid #dbdbdb;
-  border-radius: 15px;
-  border: 1px solid #dbdbdb;
-  padding: 20px 30px;
-  font-size: 12px;
-  outline: none;
-}
-
-.instagram-field input:focus {
-  border: 1px solid blue;
-}
-
-.instagram-btn {
-  width: 100%;
-  background-color: #0095f6;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 15px 15px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  height: auto;
-}
-
-.instagram-btn:hover {
-  background-color: #1877f2;
-  transform: none;
-}
-
-.instagram-btn:disabled {
-  background-color: #b2dffc;
-  cursor: default;
-}
-
-.instagram-divider {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin: 15px 0 20px;
-}
-
-.instagram-divider .line {
-  flex: 1; height: 2px; background-color: #dbdbdb;
-}
-
-.instagram-divider .text {
-  padding: 0 18px; 
-  color: #8e8e8e; 
-  font-size: 13px;
-   font-weight: 600;
-}
-
-.instagram-forgot {
-  font-size: 12px; 
-  border: 2px solid;
-  border-radius: 50px;
-  color: #00376b;
-  text-decoration: none;
-    margin-top: 12px;
-}
-
-.switch-account { 
-  padding: 20px; 
-  border: 1px solid red;
-  font-size: 14px;
- }
-.switch-account a { color: #0095f6; text-decoration: none; font-weight: 600; }
-
-.instagram-app-section { text-align: center; margin-top: 10px; }
-.instagram-app-section p { font-size: 14px; margin-bottom: 10px; }
-
-.app-stores {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.app-stores img {
-  height: 40px;
-}
-
-.auth-social-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-.social-btn-long {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px 20px;
-  height: auto;
-  border-radius: 50px;
-  border: 1px solid #dbdbdb;
-  background: transparent;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.social-btn-long:hover {
-  background-color: #fafafa;
-}

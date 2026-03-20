@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaApple } from "react-icons/fa";
 
 export default function Register() {
 
@@ -44,64 +44,57 @@ export default function Register() {
     };
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '100vh',
-            backgroundColor: '#f5f5f7',
-            padding: '20px'
-        }}>
-            <div style={{width: '100%', maxWidth: '420px'}}>
-                
-                {/* Flechita Atrás */}
-                <div style={{marginBottom: '30px'}}>
-                    <Link to="/" style={{color: '#1d1d1f', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none'}}>
-                        <FaArrowLeft />
-                    </Link>
+        <div className="auth-container auth-register-container">
+            <div className="auth-card-split" style={{animation: 'slideDown 0.5s ease-out'}}>
+
+                {/* Columna Izquierda: Formulario de Registro */}
+                <div className="auth-split-form-section">
+                    <div className="auth-header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: 30}}>
+                        <div className="auth-logo" style={{marginBottom: 15}}>
+                            <FaApple size={38} />
+                        </div>
+                        <h1>Crea tu cuenta</h1>
+                        <p>Una cuenta para todos los servicios de System24.</p>
+                    </div>
+
+                    <form onSubmit={registerUser} className="auth-form" style={{gap: 15}}>
+                        <input 
+                            type="text" 
+                            placeholder="Nombre completo" 
+                            value={data.name} 
+                            onChange={(e) => setData({ ...data, name: e.target.value })} 
+                            className="auth-input"
+                        />
+                        <input 
+                            type="email" 
+                            placeholder="Correo electrónico" 
+                            value={data.email} 
+                            onChange={(e) => setData({ ...data, email: e.target.value })} 
+                            className="auth-input"
+                        />
+                        <input 
+                            type="password" 
+                            placeholder="Contraseña" 
+                            value={data.password} 
+                            onChange={(e) => setData({ ...data, password: e.target.value })} 
+                            className="auth-input"
+                        />
+                        <button type="submit" className="auth-button" disabled={!data.email || !data.password || !data.name}>
+                            Crear cuenta
+                        </button>
+                    </form>
+
+                    <div className="auth-footer" style={{textAlign: 'left', marginTop: 'auto', paddingTop: 20}}>
+                        <p>¿Ya tienes una cuenta? <Link to="/login">Inicia sesión.</Link></p>
+                    </div>
                 </div>
 
-                {/* Texto Arriba */}
-                <div style={{textAlign: 'center', marginBottom: '40px'}}>
-                    <h1 style={{fontSize: '32px', fontWeight: '700', color: '#1d1d1f', marginBottom: '10px', letterSpacing: '-0.5px'}}>Crear cuenta</h1>
-                    <p style={{color: '#86868b', fontSize: '16px'}}>Regístrate para empezar.</p>
-                </div>
-
-                {/* Inputs y Botón */}
-                <form onSubmit={registerUser} style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-                    <input 
-                        type="text" 
-                        placeholder="Nombre completo" 
-                        value={data.name} 
-                        onChange={(e) => setData({ ...data, name: e.target.value })} 
-                        className="auth-input"
-                        style={{height: '52px', fontSize: '16px', padding: '0 20px'}}
-                    />
-                    <input 
-                        type="email" 
-                        placeholder="Correo electrónico" 
-                        value={data.email} 
-                        onChange={(e) => setData({ ...data, email: e.target.value })} 
-                        className="auth-input"
-                        style={{height: '52px', fontSize: '16px', padding: '0 20px', color: '#0071e3'}}
-                    />
-                    <input 
-                        type="password" 
-                        placeholder="Contraseña" 
-                        value={data.password} 
-                        onChange={(e) => setData({ ...data, password: e.target.value })} 
-                        className="auth-input"
-                        style={{height: '52px', fontSize: '16px', padding: '0 20px'}}
-                    />
-                    
-                    <button type="submit" className="auth-button" disabled={!data.email || !data.password || !data.name} style={{marginTop: '15px', backgroundColor: '#0095f6', height: '52px', fontSize: '16px'}}>
-                        Registrarse
-                    </button>
-                </form>
-
-                <div style={{marginTop: '40px', textAlign: 'center', fontSize: '14px', color: '#86868b'}}>
-                    ¿Ya tienes cuenta? <Link to="/login" style={{color: '#0071e3', fontWeight: '600', textDecoration: 'none'}}>Inicia sesión</Link>
+                {/* Columna Derecha: Imagen Decorativa */}
+                <div className="auth-register-visual">
+                    <div className="visual-content">
+                        <h2 style={{fontSize: 28, fontWeight: 600}}>Un universo de posibilidades.</h2>
+                        <p style={{fontSize: 16, opacity: 0.8}}>Gestiona proyectos, equipos y mucho más. Todo en un solo lugar.</p>
+                    </div>
                 </div>
             </div>
         </div>
