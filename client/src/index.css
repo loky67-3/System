@@ -725,9 +725,20 @@ body {
   background-color: #ffffff;
   border: none;
   border-radius: 18px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
   
   backdrop-filter: none;
+}
+
+/* Ajuste Responsive para Login */
+@media (max-width: 850px) {
+  .auth-container {
+    padding-top: 20px; /* Menos espacio arriba en móvil */
+    align-items: center; /* Centrar verticalmente en móvil */
+  }
+  .instagram-box {
+    background-color: transparent; /* Opcional: hacer transparente en móvil o mantener blanco */
+    border: 1px solid #dbdbdb; /* Mantener borde o quitarlo según gusto, aquí lo mantengo igual que desktop */
+  }
 }
 
 /* Floating Elements */
@@ -1905,18 +1916,21 @@ body {
   width: 1px;
   height: 500px;
   background-color: #dbdbdb;
+  display: none; /* Oculto en móvil por defecto */
 }
 
 @media (min-width: 850px) {
   .instagram-left-section { display: flex; }
   .layout-divider { display: block; }
+  .auth-container { padding-top: 10vh; } /* Restaurar padding original en desktop */
 }
 
 .instagram-right-col {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 600px;
+  width: 100%;
+  max-width: 400px; /* En móvil ocupa 100% hasta 400px */
   flex-shrink: 0;
 }
 

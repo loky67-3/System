@@ -53,7 +53,7 @@ export default function Register() {
             backgroundColor: '#f5f5f7',
             padding: '20px'
         }}>
-            <div style={{width: '100%', maxWidth: '360px'}}>
+            <div style={{width: '100%', maxWidth: '420px'}}>
                 
                 {/* Flechita Atrás */}
                 <div style={{marginBottom: '30px'}}>
@@ -76,6 +76,7 @@ export default function Register() {
                         value={data.name} 
                         onChange={(e) => setData({ ...data, name: e.target.value })} 
                         className="auth-input"
+                        style={{height: '52px', fontSize: '16px', padding: '0 20px'}}
                     />
                     <input 
                         type="email" 
@@ -83,6 +84,7 @@ export default function Register() {
                         value={data.email} 
                         onChange={(e) => setData({ ...data, email: e.target.value })} 
                         className="auth-input"
+                        style={{height: '52px', fontSize: '16px', padding: '0 20px', color: '#0071e3'}}
                     />
                     <input 
                         type="password" 
@@ -90,9 +92,10 @@ export default function Register() {
                         value={data.password} 
                         onChange={(e) => setData({ ...data, password: e.target.value })} 
                         className="auth-input"
+                        style={{height: '52px', fontSize: '16px', padding: '0 20px'}}
                     />
                     
-                    <button type="submit" className="auth-button" disabled={!data.email || !data.password || !data.name} style={{marginTop: '10px'}}>
+                    <button type="submit" className="auth-button" disabled={!data.email || !data.password || !data.name} style={{marginTop: '15px', backgroundColor: '#0095f6', height: '52px', fontSize: '16px'}}>
                         Registrarse
                     </button>
                 </form>
