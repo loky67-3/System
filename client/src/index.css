@@ -1035,10 +1035,7 @@ body {
   -webkit-backdrop-filter: blur(4px);
   z-index: 99;
   display: none; /* Oculto en desktop */
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
 }
-
 .db-logo {
   font-size: 22px;
   font-weight: 700;
@@ -1103,50 +1100,53 @@ body {
 
 /* --- RESPONSIVE DASHBOARD (MEDIA QUERIES) --- */
 @media (max-width: 950px) {
-  /* 1. Sidebar Flotante (Off-Canvas) */
+  /* El layout principal ya no necesita ser flex, el sidebar es `fixed` */
+  .dashboard-layout {
+    display: block;
+  }
+
+  /* 1. Sidebar se convierte en un "drawer" que se desliza */
   .db-sidebar {
-    position: fixed;
+    position: fixed; /* Se saca del flujo normal del documento */
     top: 0;
     left: 0;
     height: 100%;
-    transform: translateX(-100%); /* Escondido a la izquierda */
-    box-shadow: 5px 0 30px rgba(0,0,0,0.15); /* Sombra al abrir */
-    z-index: 200; /* Por encima de todo */
+    width: 280px; /* Ancho explícito para el menú móvil */
+    transform: translateX(-100%); /* Oculto fuera de la pantalla a la izquierda */
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); /* Animación suave */
+    box-shadow: 0 0 40px rgba(0,0,0,0.2); /* Sombra más pronunciada al abrirse */
+    z-index: 300; /* Z-index alto para estar por encima de todo */
   }
 
+  /* Cuando se añade la clase 'open', el menú se desliza a la vista */
   .db-sidebar.open {
-    transform: translateX(0); /* Mostrar */
+    transform: translateX(0);
   }
 
-  /* 2. Mostrar elementos móviles */
-  .db-sidebar-overlay { display: block; }
-  .db-mobile-toggle { display: flex; }
-  .db-header-mobile { display: flex; }
-  .desktop-only-logo { display: none; }
+  /* 2. Overlay para oscurecer el fondo */
+  .db-sidebar-overlay {
+    display: block; /* Se muestra en móvil (controlado por React) */
+    position: fixed;
+    inset: 0; /* Cubre toda la pantalla */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 299; /* Justo debajo del sidebar */
+    animation: fadeIn 0.35s ease; /* Animación de aparición */
+  }
 
-  /* 3. Ajustes de Contenido */
+  /* 3. El contenido principal ocupa todo el ancho */
   .db-content {
-    width: 100%; /* Ocupa todo el ancho */
-    padding: 15px; /* Menos padding */
+    width: 100%;
+    padding: 20px 15px; /* Padding ajustado para móvil */
+    margin-left: 0; /* Resetea cualquier margen de la vista de escritorio */
   }
 
-  .dashboard-grid, .reports-grid, .settings-grid {
-    grid-template-columns: 1fr; /* 1 Columna */
-  }
-
-  .stat-card {
-    padding: 20px; /* Tarjetas más compactas */
-  }
-
-  /* 4. Ajustes de Header Dashboard */
-  .db-search-container {
-    display: none; /* Ocultar búsqueda en móvil para ahorrar espacio (opcional) */
-  }
-
-  .kanban-board {
-    /* En móvil, Kanban mantiene scroll horizontal, es mejor UX que apilar */
-    padding-bottom: 20px;
-  }
+  /* 4. Mostrar/Ocultar elementos de UI */
+  .db-mobile-toggle { display: flex; } /* Muestra el icono de hamburguesa */
+  .db-header-mobile { display: flex; } /* Muestra el header dentro del sidebar móvil */
+  .desktop-only-logo { display: none; } /* Oculta el logo de escritorio */
+  .db-search-container { display: none; } /* Oculta la barra de búsqueda */
 }
 
 /* Perfil Header */

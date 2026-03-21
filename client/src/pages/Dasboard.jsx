@@ -326,9 +326,6 @@ export default function Dasboard() {
 
   return (
     <div className="dashboard-layout">
-      
-      {/* Overlay para móvil cuando el menú está abierto */}
-      {isSidebarOpen && <div className="db-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
 
       {/* 1. SIDEBAR PRO */}
       <aside className={`db-sidebar ${isSidebarOpen ? 'open' : ''}`}>
@@ -1465,6 +1462,9 @@ export default function Dasboard() {
             </div>
         </div>
       )}
+
+      {/* Overlay para móvil (se renderiza al final para apilamiento natural y z-index) */}
+      {isSidebarOpen && <div className="db-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
 
     </div>
   )
