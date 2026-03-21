@@ -1,22 +1,30 @@
 const express = require('express');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const cors = require('cors');
 const mongoose = require('mongoose');
+
 const app = express();
 
-
-//database conection
+// database connection
 mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log('Database connectada'))
-.catch((err) => console.log('DataBase not connected', err))
+.then(() => console.log('Database conectada'))
+.catch((err) => console.log('Database not connected', err));
 
-
-//middleware
+// middleware
 app.use(express.json());
 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://ventas-runing.onrender.com"
+  ],
+  credentials: true
+}));
 
+// routes
+app.use('/', require('./routes/authRoutes'));
 
-app.use('/', require('./routes/authRoutes'))
+// puerto para Render
+const port = process.env.PORT || 8000;
 
-const port = 8000;
-app.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`))
+app.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`));
