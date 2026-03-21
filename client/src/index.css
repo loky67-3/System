@@ -1847,28 +1847,31 @@ body {
 /* --- Mobile Home Buttons --- */
 .mobile-home-actions {
   display: none; /* Oculto por defecto en escritorio */
-  padding: 0 22px 30px;
-  gap: 15px;
-  max-width: 1024px;
-  margin: 0 auto;
+  padding: 0 22px 40px;
+  gap: 12px;
+  justify-content: flex-start; /* Alineado a la izquierda ("mas ala izquierda") */
+  margin: 0;
 }
 
 .mobile-action-btn {
-  flex: 1;
+  /* flex: 1; Eliminado para que no ocupen todo el ancho */
+  min-width: 130px; /* Tamaño mínimo cómodo */
   text-align: center;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 12px 24px;
+  border-radius: 30px; /* Estilo Pastilla (Pill) más estilizado */
   text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  transition: transform 0.2s;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06); /* Sombra suave elegante */
 }
 
 .mobile-action-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
+  box-shadow: none;
 }
 
 .mobile-action-btn.primary {
@@ -1877,7 +1880,8 @@ body {
 }
 
 .mobile-action-btn.secondary {
-  background-color: #e5e5ea;
+  background-color: #ffffff; /* Blanco limpio */
+  border: 1px solid #d2d2d7; /* Borde sutil */
   color: #1d1d1f;
 }
 
