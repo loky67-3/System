@@ -9,7 +9,7 @@ router.use(
         credentials: true,
         origin: [
             'http://localhost:5173', // Para seguir trabajando en local
-            'https://system24.onrender.com'  // ¡IMPORTANTE! Reemplaza esto con la URL de tu frontend en Render
+            'https://ventas-runing.onrender.com' // ¡IMPORTANTE! Reemplaza esto con la URL de tu frontend en Render
         ]
     })
 )
