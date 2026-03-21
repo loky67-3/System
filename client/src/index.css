@@ -1617,6 +1617,23 @@ body {
   background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 50%);
 }
 
+/* --- Ajustes Responsivos para el Registro --- */
+@media (max-width: 900px) {
+  .auth-card-split {
+    flex-direction: column; /* Apilar verticalmente */
+    max-width: 500px; /* Limitar ancho en tablet/móvil */
+  }
+
+  .auth-register-visual {
+    display: none; /* Ocultar imagen lateral en móvil para centrar formulario */
+  }
+
+  .auth-split-form-section {
+    min-width: 0; /* IMPORTANTE: Permite que el formulario se encoja en móvil */
+    padding: 30px 20px; /* Reducir padding lateral */
+  }
+}
+
 /* --- SETTINGS PRO STYLES --- */
 .settings-grid {
   display: grid;
