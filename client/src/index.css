@@ -1843,3 +1843,49 @@ body {
   background: white; padding: 25px; border-radius: 16px; border: 1px solid #e5e5ea; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.2s;
 }
 .support-box:hover { border-color: #34c759; transform: scale(1.02); }
+
+/* --- Mobile Home Buttons --- */
+.mobile-home-actions {
+  display: none; /* Oculto por defecto en escritorio */
+  padding: 0 22px 30px;
+  gap: 15px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.mobile-action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-action-btn:active {
+  transform: scale(0.96);
+}
+
+.mobile-action-btn.primary {
+  background-color: #0071e3;
+  color: white;
+}
+
+.mobile-action-btn.secondary {
+  background-color: #e5e5ea;
+  color: #1d1d1f;
+}
+
+@media (max-width: 768px) {
+  .mobile-home-actions {
+    display: flex; /* Visible solo en móvil */
+  }
+  .home-header {
+    padding-bottom: 20px !important; /* Menos espacio entre título y botones */
+  }
+}

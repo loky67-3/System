@@ -24,10 +24,16 @@ export default function Home() {
     <div className="home-container">
       
       {/* --- HEADER STORE STYLE --- */}
-      <div style={{padding: '80px 22px 40px', maxWidth: 1024, margin: '0 auto'}}>
+      <div className="home-header" style={{padding: '80px 22px 40px', maxWidth: 1024, margin: '0 auto'}}>
           <h1 style={{fontSize: 48, fontWeight: 700, lineHeight: 1.1}}>
             Estilo. <span style={{color: '#86868b'}}>La mejor forma de encontrar tu look.</span>
           </h1>
+      </div>
+
+      {/* Botones de Acceso Rápido (Solo Móvil) */}
+      <div className="mobile-home-actions">
+          <Link to="/login" className="mobile-action-btn primary">Iniciar Sesión</Link>
+          <Link to="/register" className="mobile-action-btn secondary">Registrarse</Link>
       </div>
 
       {/* --- SECTION 1: CATEGORY ICONS --- */}
