@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
-import { FaApple } from "react-icons/fa";
+import { FaCheckDouble } from "react-icons/fa";
 
 export default function Register() {
 
@@ -51,7 +51,7 @@ export default function Register() {
                 <div className="auth-split-form-section">
                     <div className="auth-header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: 30}}>
                         <div className="auth-logo" style={{marginBottom: 15}}>
-                            <FaApple size={38} />
+                            <FaCheckDouble size={38} />
                         </div>
                         <h1>Crea tu cuenta</h1>
                         <p>Una cuenta para todos los servicios de System24.</p>

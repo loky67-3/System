@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import { useNavigate, Link } from "react-router-dom"
-import { FaApple, FaGoogle } from "react-icons/fa"
+import { FaCheckDouble, FaGoogle } from "react-icons/fa"
 
 export default function Login() {
 
@@ -49,7 +49,7 @@ export default function Login() {
         <div className="auth-card" style={{animation: 'slideDown 0.5s ease-out'}}>
             <div className="auth-header">
                 <div className="auth-logo">
-                    <FaApple size={44} />
+                    <FaCheckDouble size={44} />
                 </div>
                 <h1>Iniciar Sesión</h1>
                 <p>Usa tu ID de System24 para continuar.</p>
