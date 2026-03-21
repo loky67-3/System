@@ -333,7 +333,8 @@ export default function Dasboard() {
       {/* 1. SIDEBAR PRO */}
       <aside className={`db-sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="db-header-mobile">
-             <div className="db-logo"><FaCheckDouble size={22} /> System24</div>
+             {/* Logo en versión móvil dentro del sidebar */}
+             <div className="db-logo" style={{margin:0}}><FaCheckDouble size={22} /> System24</div>
              <button className="db-close-btn" onClick={() => setIsSidebarOpen(false)}><FaTimes /></button>
         </div>
 
@@ -366,10 +367,11 @@ export default function Dasboard() {
         <header className="db-header" style={{marginBottom: 10, paddingBottom: 10, borderBottom: '1px solid #e5e5ea'}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
             <button className="db-mobile-toggle" onClick={() => setIsSidebarOpen(true)} style={{marginRight: 5}}>
-                <FaBars size={22} color="#1d1d1f" />
+                {/* Icono Hamburguesa visible solo en móvil */}
+                <FaBars size={24} color="#1d1d1f" />
             </button>
             <div className="db-welcome">
-                <h1 style={{fontSize: 24, fontWeight: 700, margin: 0, color: '#1d1d1f'}}>Panel</h1>
+                <h1 style={{fontWeight: 700, margin: 0, color: '#1d1d1f'}}>Panel</h1>
             </div>
 
             {/* View Switcher Integrated */}

@@ -1002,11 +1002,14 @@ body {
   overflow: hidden;
   font-family: "SF Pro Text", sans-serif;
   position: relative;
+  /* Importante para el posicionamiento absoluto en móvil */
+  flex-direction: row; 
 }
 
 /* Sidebar */
 .db-sidebar {
-  width: 290px; /* Más ancho (aprox +10%) */
+  width: 280px; 
+  flex-shrink: 0;
   background: #ffffff;
   height: 100%;
   display: flex;
@@ -1017,9 +1020,11 @@ body {
   z-index: 100;
 }
 
-.db-header-mobile { display: none; }
-.db-mobile-toggle { display: none; }
-.desktop-only-logo { display: flex; }
+/* Elementos móviles ocultos por defecto en escritorio */
+.db-header-mobile { display: none; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.db-mobile-toggle { display: none; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: #1d1d1f; }
+.db-close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #86868b; }
+.desktop-only-logo { display: flex; align-items: center; font-size: 22px; font-weight: 700; color: #1d1d1f; gap: 10px; margin-bottom: 40px; }
 
 /* Overlay móvil */
 .db-sidebar-overlay {
@@ -1027,8 +1032,11 @@ body {
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.3);
   backdrop-filter: blur(4px);
-  z-index: 90;
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 99;
   display: none; /* Oculto en desktop */
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
 }
 
 .db-logo {
@@ -1086,11 +1094,62 @@ body {
   display: flex; 
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Permitir que baje en pantallas muy pequeñas */
+  gap: 15px;
 }
 
-.db-welcome h1 { font-size: 32px; font-weight: 700; color: #1d1d1f; }
+.db-welcome h1 { font-size: 28px; font-weight: 700; color: #1d1d1f; margin: 0; }
 .db-welcome p { color: #86868b; margin-top: 5px; }
 
+/* --- RESPONSIVE DASHBOARD (MEDIA QUERIES) --- */
+@media (max-width: 950px) {
+  /* 1. Sidebar Flotante (Off-Canvas) */
+  .db-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%); /* Escondido a la izquierda */
+    box-shadow: 5px 0 30px rgba(0,0,0,0.15); /* Sombra al abrir */
+    z-index: 200; /* Por encima de todo */
+  }
+
+  .db-sidebar.open {
+    transform: translateX(0); /* Mostrar */
+  }
+
+  /* 2. Mostrar elementos móviles */
+  .db-sidebar-overlay { display: block; }
+  .db-mobile-toggle { display: flex; }
+  .db-header-mobile { display: flex; }
+  .desktop-only-logo { display: none; }
+
+  /* 3. Ajustes de Contenido */
+  .db-content {
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 15px; /* Menos padding */
+  }
+
+  .dashboard-grid, .reports-grid, .settings-grid {
+    grid-template-columns: 1fr; /* 1 Columna */
+  }
+
+  .stat-card {
+    padding: 20px; /* Tarjetas más compactas */
+  }
+
+  /* 4. Ajustes de Header Dashboard */
+  .db-search-container {
+    display: none; /* Ocultar búsqueda en móvil para ahorrar espacio (opcional) */
+  }
+
+  .kanban-board {
+    /* En móvil, Kanban mantiene scroll horizontal, es mejor UX que apilar */
+    padding-bottom: 20px;
+  }
+}
+
+/* Perfil Header */
 .db-profile {
   display: flex;
   align-items: center;
@@ -1146,6 +1205,7 @@ body {
   cursor: grab;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
+  touch-action: manipulation; /* Mejor tacto en móvil */
 }
 
 .kanban-card:hover {
@@ -1186,7 +1246,22 @@ body {
   padding: 30px;
   border-radius: 24px;
   width: 400px;
+  max-width: 90%; /* Responsive */
   box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* En móvil el modal debe ajustar su altura si tiene scroll */
+@media (max-width: 600px) {
+  .modal-content, .modal-content-compact, .modal-content-large {
+    width: 95% !important;
+    padding: 20px !important;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .form-grid {
+    grid-template-columns: 1fr; /* Inputs a 1 columna en móvil */
+  }
 }
 
 /* --- ADVANCED DASHBOARD FEATURES --- */
