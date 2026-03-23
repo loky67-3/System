@@ -38,7 +38,7 @@ export default function Home() {
 
       {/* --- SECTION 1: CATEGORY ICONS --- */}
       <div className="category-section">
-         <div className="chapter-nav" ref={categoryRef} style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
+         <div className="chapter-nav" ref={categoryRef} style={{ justifyContent: 'center', flexWrap: 'wrap', maxWidth: 1024, margin: '0 auto' }}>
             <Link to="/store/clothing" className="chapter-item">
                <img src="https://cdn-icons-png.flaticon.com/512/2357/2357127.png" alt="Ropa" className="chapter-icon" />
                <span>Ropa</span>
@@ -76,12 +76,14 @@ export default function Home() {
 
       {/* --- SECTION 2: THE LATEST (Horizontal Carousel) --- */}
       <section className="carousel-section">
-        <h2 className="section-heading" style={{textAlign: 'left', paddingLeft: 22}}>Lo último. <span className="text-gray">Novedades frescas.</span></h2>
+        <div style={{maxWidth: 1024, margin: '0 auto', padding: '0 22px'}}>
+            <h2 className="section-heading" style={{textAlign: 'left', paddingLeft: 0}}>Lo último. <span className="text-gray">Novedades frescas.</span></h2>
+        </div>
         
         <button className="scroll-arrow left" onClick={() => handleScroll(productsRef, 'left')}><FaChevronLeft size={20} /></button>
         <button className="scroll-arrow right" onClick={() => handleScroll(productsRef, 'right')}><FaChevronRight size={20} /></button>
 
-        <div className="carousel-container" ref={productsRef}>
+        <div className="carousel-container" ref={productsRef} style={{paddingLeft: 'max(22px, calc(50% - 512px))', paddingRight: 'max(22px, calc(50% - 512px))'}}>
             
             {/* Card 1: Streetwear */}
             <div className="round-card large" style={{background: '#000'}}>
@@ -127,10 +129,10 @@ export default function Home() {
       </section>
 
       {/* --- SECTION 3: THE APPLE DIFFERENCE (Grid) --- */}
-      <div style={{padding: '40px 22px 100px'}}>
-        <h2 className="section-heading" style={{textAlign: 'left'}}>Ayuda aquí y ahora. <span className="text-gray">Cuando y como la necesites.</span></h2>
+      <div style={{padding: '40px 22px 100px', maxWidth: 1024, margin: '0 auto'}}>
+        <h2 className="section-heading" style={{textAlign: 'left', paddingLeft: 0}}>Ayuda aquí y ahora. <span className="text-gray">Cuando y como la necesites.</span></h2>
         
-        <div className="apple-grid">
+        <div className="apple-grid" style={{padding: 0}}>
             {/* Specialist */}
             <div className="promo-card white-bg" style={{height: 500, borderRadius: 24, overflow: 'hidden', alignItems: 'flex-start', textAlign: 'left', padding: 40}}>
                  <div style={{zIndex: 10, maxWidth: 350}}>
@@ -155,12 +157,14 @@ export default function Home() {
 
       {/* --- SECTION 4: ACCESSORIES (Carousel) --- */}
       <section className="carousel-section" style={{background: '#fff', paddingTop: 0}}>
-        <h2 className="section-heading" style={{textAlign: 'left', paddingLeft: 22}}>Accesorios. <span className="text-gray">Esenciales que combinan perfecto.</span></h2>
+        <div style={{maxWidth: 1024, margin: '0 auto', padding: '0 22px'}}>
+            <h2 className="section-heading" style={{textAlign: 'left', paddingLeft: 0}}>Accesorios. <span className="text-gray">Esenciales que combinan perfecto.</span></h2>
+        </div>
         
         <button className="scroll-arrow left" onClick={() => handleScroll(helpRef, 'left')}><FaChevronLeft size={20} /></button>
         <button className="scroll-arrow right" onClick={() => handleScroll(helpRef, 'right')}><FaChevronRight size={20} /></button>
 
-        <div className="carousel-container" ref={helpRef}>
+        <div className="carousel-container" ref={helpRef} style={{paddingLeft: 'max(22px, calc(50% - 512px))', paddingRight: 'max(22px, calc(50% - 512px))'}}>
             
             {/* Card 1: Fundas */}
             <div className="round-card" style={{height: 480, width: 310, background: '#000'}}>
