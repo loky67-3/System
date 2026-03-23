@@ -39,7 +39,7 @@ export default function Home() {
       {/* --- SECTION 1: CATEGORY ICONS --- */}
       <div className="category-section">
          <div className="chapter-nav" ref={categoryRef} style={{ justifyContent: 'center', flexWrap: 'wrap', maxWidth: 1024, margin: '0 auto' }}>
-            <Link to="/store/clothing" className="chapter-item">
+            <Link to="/store/cing" className="chapter-item">
                <img src="https://cdn-icons-png.flaticon.com/512/2357/2357127.png" alt="Ropa" className="chapter-icon" />
                <span>Ropa</span>
             </Link>
@@ -216,52 +216,113 @@ export default function Home() {
       </section>
 
       {/* --- FOOTER DETALLADO --- */}
-      <footer style={{background: '#f5f5f7', padding: '60px 22px 40px', fontSize: 12, color: '#86868b', borderTop: '1px solid #d2d2d7'}}>
+      <footer style={{background: '#f5f5f7', padding: '40px 22px', fontSize: 12, color: '#86868b', borderTop: '1px solid #d2d2d7'}}>
          <div style={{maxWidth: 1024, margin: '0 auto'}}>
             
             {/* Footer Breadcrumbs */}
-            <div style={{marginBottom: 30, display:'flex', alignItems:'center', gap: 10}}>
-                <FaHome size={14} color="#424245" /> <FaChevronRight size={8} /> <span>Inicio</span>
+            <div style={{marginBottom: 20, display:'flex', alignItems:'center', gap: 10, paddingBottom: 20, borderBottom: '1px solid #d2d2d7'}}>
+                <FaHome size={14} color="#424245" /> <FaChevronRight size={10} /> 
+                <span style={{color: '#1d1d1f'}}>System24 Store</span>
             </div>
 
-            {/* Footer Columns */}
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 40, marginBottom: 40}}>
-                <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
-                    <h4 style={{color: '#1d1d1f', fontWeight: 600}}>Descubrir y Comprar</h4>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Novedades</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ropa</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Calzado</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Celulares</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Relojes</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Accesorios</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ofertas</Link>
-                </div>
+            {/* Footer Columns (5 Columns) */}
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 20, alignItems: 'start'}}>
                 
-                <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
-                    <h4 style={{color: '#1d1d1f', fontWeight: 600}}>Cuenta</h4>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mi Perfil</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mis Pedidos</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Lista de Deseos</Link>
+                {/* Col 1 */}
+                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Descubrir y Comprar</h4>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Tienda</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mac</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iPad</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iPhone</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Watch</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>AirPods</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>TV y Casa</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>AirTag</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Accesorios</Link>
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'column', gap: 10}}>
-                    <h4 style={{color: '#1d1d1f', fontWeight: 600}}>Sobre Nosotros</h4>
+                {/* Col 2 */}
+                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                     <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Cuenta</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Gestionar tu ID</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Cuenta de Apple Store</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iCloud.com</Link>
+                     </div>
+                     <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Entretenimiento</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple One</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple TV+</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Music</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Arcade</Link>
+                     </div>
+                </div>
+                
+                {/* Col 3 */}
+                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Tienda Apple</h4>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Buscar una tienda</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ayuda</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Envíos y Devoluciones</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Sostenibilidad</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Genius Bar</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Today at Apple</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Camp</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>App Store</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Financiación</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Plan de Canje</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Estado del pedido</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ayuda para comprar</Link>
+                </div>
+
+                {/* Col 4 */}
+                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para la empresa</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple y la empresa</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Comprar para tu empresa</Link>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para la educación</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple y la educación</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Comprar para la universidad</Link>
+                    </div>
+                </div>
+
+                {/* Col 5 */}
+                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Valores de Apple</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Accesibilidad</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Medio ambiente</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Privacidad</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Responsabilidad de proveedores</Link>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Acerca de Apple</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Newsroom</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Directivos de Apple</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Oportunidades de empleo</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ética y cumplimiento</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Eventos</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Contactar con Apple</Link>
+                    </div>
                 </div>
             </div>
             
-            {/* Footer Bottom */}
-            <div style={{borderTop: '1px solid #d2d2d7', paddingTop: 20, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20}}>
-                <p>Copyright © 2024 System24. Todos los derechos reservados.</p>
-                <div style={{display: 'flex', gap: 20}}>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Política de privacidad</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Términos de uso</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ventas y reembolsos</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Aviso legal</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mapa del sitio</Link>
+            <div style={{marginTop: 30, paddingTop: 20, borderTop: '1px solid #d2d2d7', fontSize: 11, color: '#86868b'}}>
+                <p style={{marginBottom: 10}}>Más formas de comprar: <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>Encuentra un Apple Store</Link> o <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>un distribuidor</Link> cerca de ti. O llama al 001-800-692-7753.</p>
+                <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, borderTop: '1px solid #d2d2d7', paddingTop: 10}}>
+                    <div style={{display: 'flex', gap: 20, flexWrap: 'wrap'}}>
+                        <span>Copyright © 2024 Apple Inc. Todos los derechos reservados.</span>
+                    </div>
+                    <div style={{display: 'flex', gap: 15, flexWrap: 'wrap'}}>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Política de privacidad</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Uso de cookies</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Condiciones de uso</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Ventas y reembolsos</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Aviso legal</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mapa del sitio</Link>
+                    </div>
+                    <div style={{color: '#424245'}}>México</div>
                 </div>
             </div>
          </div>
