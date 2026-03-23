@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaHome, FaSearch, FaShoppingBag, FaBars, FaTimes, FaTshirt } from "react-icons/fa";
 
 export default function Navbar() {
-  const [activeDropdown, setActiveDropdown] = useState("Home"); // Default para mostrar estructura si se activa
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   // Muestra el menú al pasar el mouse
