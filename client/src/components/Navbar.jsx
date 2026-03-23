@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaHome, FaSearch, FaShoppingBag, FaBars, FaTimes, FaTshirt } from "react-icons/fa";
 
 export default function Navbar() {
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState("Home"); // Default para mostrar estructura si se activa
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   // Muestra el menú al pasar el mouse
@@ -90,6 +90,7 @@ export default function Navbar() {
         {/* Mega Menú (Desplegable que cubre la pantalla) */}
         <div className={`mega-menu-container ${activeDropdown ? 'visible' : ''}`}>
           <div className="mega-menu-content">
+             
              {/* Contenido dinámico según la selección */}
              <div className="menu-column">
                 <h3>Explorar {navItems.find(i => i.key === activeDropdown)?.label}</h3>
@@ -103,8 +104,9 @@ export default function Navbar() {
                 <Link to="#">Más Vendidos</Link>
                 <Link to="#">Ofertas</Link>
              </div>
+
              {/* Imagen dinámica de producto */}
-             <div className="menu-image-preview">
+             <div className="menu-image-preview" style={{marginLeft: 'auto'}}>
                  {activeDropdown && menuImages[activeDropdown] && (
                     <img src={menuImages[activeDropdown]} alt={activeDropdown} className="nav-menu-image" />
                  )}
