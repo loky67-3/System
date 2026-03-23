@@ -230,89 +230,91 @@ export default function Home() {
                 
                 {/* Col 1 */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Descubrir y Comprar</h4>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Tienda</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mac</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iPad</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iPhone</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Watch</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>AirPods</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>TV y Casa</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>AirTag</Link>
+                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Explorar Tienda</h4>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Novedades</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ropa y Moda</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Tecnología</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Calzado</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Relojes</Link>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Accesorios</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Hogar y Estilo</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Tarjetas de Regalo</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ofertas</Link>
                 </div>
 
                 {/* Col 2 */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
                      <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Cuenta</h4>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Gestionar tu ID</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Cuenta de Apple Store</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>iCloud.com</Link>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Mi Cuenta</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Administrar mi cuenta</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Historial de Pedidos</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Mi Lista de Deseos</Link>
                      </div>
                      <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Entretenimiento</h4>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple One</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple TV+</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Music</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Arcade</Link>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Servicios System24</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>System24+</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Garantía Extendida</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Soporte Técnico</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Financiamiento</Link>
                      </div>
                 </div>
                 
                 {/* Col 3 */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Tienda Apple</h4>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Buscar una tienda</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Genius Bar</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Today at Apple</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple Camp</Link>
-                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>App Store</Link>
+                    <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Nuestra Tienda</h4>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Encontrar una tienda</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Reservar una cita</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Eventos y Talleres</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Programa de Reciclaje</Link>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Financiación</Link>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Plan de Canje</Link>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Estado del pedido</Link>
                     <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ayuda para comprar</Link>
+                    <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Opciones de envío</Link>
                 </div>
 
                 {/* Col 4 */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
                     <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para la empresa</h4>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple y la empresa</Link>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para Empresas</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>System24 para Negocios</Link>
                         <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Comprar para tu empresa</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Soluciones Corporativas</Link>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para la educación</h4>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Apple y la educación</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Comprar para la universidad</Link>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Para Educación</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>System24 y la Educación</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Descuentos para estudiantes</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Compras para Instituciones</Link>
                     </div>
                 </div>
 
                 {/* Col 5 */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
                     <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Valores de Apple</h4>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Nuestros Valores</h4>
                         <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Accesibilidad</Link>
                         <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Medio ambiente</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Privacidad</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Responsabilidad de proveedores</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Privacidad y Datos</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Responsabilidad Social</Link>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: 8, marginTop: 15}}>
-                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Acerca de Apple</h4>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Newsroom</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Directivos de Apple</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Oportunidades de empleo</Link>
+                        <h4 style={{color: '#1d1d1f', fontWeight: 600, marginBottom: 4}}>Acerca de System24</h4>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Sala de Prensa</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Nuestro Equipo</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Trabaja con nosotros</Link>
                         <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Ética y cumplimiento</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Eventos</Link>
-                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Contactar con Apple</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Inversionistas</Link>
+                        <Link to="#" style={{color: '#424245', textDecoration: 'none'}}>Contacto</Link>
                     </div>
                 </div>
             </div>
             
             <div style={{marginTop: 30, paddingTop: 20, borderTop: '1px solid #d2d2d7', fontSize: 11, color: '#86868b'}}>
-                <p style={{marginBottom: 10}}>Más formas de comprar: <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>Encuentra un Apple Store</Link> o <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>un distribuidor</Link> cerca de ti. O llama al 001-800-692-7753.</p>
+                <p style={{marginBottom: 10}}>Más formas de comprar: <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>Encuentra una tienda</Link> o <Link to="#" style={{color: '#0071e3', textDecoration: 'none'}}>un distribuidor</Link> cerca de ti. O llama al 800-SYSTEM24.</p>
                 <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, borderTop: '1px solid #d2d2d7', paddingTop: 10}}>
                     <div style={{display: 'flex', gap: 20, flexWrap: 'wrap'}}>
-                        <span>Copyright © 2024 Apple Inc. Todos los derechos reservados.</span>
+                        <span>Copyright © 2024 System24 Inc. Todos los derechos reservados.</span>
                     </div>
                     <div style={{display: 'flex', gap: 15, flexWrap: 'wrap'}}>
                         <Link to="#" style={{color: '#424245', textDecoration: 'none', borderRight: '1px solid #d2d2d7', paddingRight: 10}}>Política de privacidad</Link>
