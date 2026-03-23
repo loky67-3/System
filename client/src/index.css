@@ -7,7 +7,7 @@
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: #fbfbfd; /* Fondo "Apple Off-White" premium */
+  background-color: red; /* Fondo "Apple Off-White" premium */
   font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -306,7 +306,7 @@ body {
   flex-direction: column;
   gap: 12px;
   padding-bottom: 2px;
-  background-color: #fff;
+  background-color: rgb(91, 168, 192);
 }
 
 /* Chapter Nav: Iconos de Categoría estilo Apple */
