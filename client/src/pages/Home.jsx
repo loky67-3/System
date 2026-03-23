@@ -173,7 +173,7 @@ export default function Home() {
                     <h3 style={{fontSize: 24, color: '#fff'}}>Protección.</h3>
                     <p style={{color: '#a1a1a6'}}>Estilo para tu celular.</p>
                 </div>
-                <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Fundas" />
+                <img src="https://img.freepik.com/fotos-premium/uvas-verdes-plato-sobre-fondo-blanco_1108314-126514.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Fundas" />
             </div>
 
             {/* Card 2: Relojes */}
@@ -182,7 +182,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Smartwatch</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Conectado siempre.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1517502474097-f9b30659dadb?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Smartwatch" />
+                <img src="https://img.freepik.com/premium-photo/fish-with-yellow-tail-is-aquarium_1212225-2963.jpg" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Smartwatch" />
             </div>
 
             {/* Card 3: Audio */}
@@ -191,7 +191,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#86868b', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Audio</span>
                     <h3 style={{fontSize: 24, color: '#fff'}}>Sonido Premium.</h3>
                 </div>
-                <img src="https://img.freepik.com/fotos-premium/audifonos-modernos-blancos-aislados-sobre-fondo-blanco-diseno-elegante_1133159-819.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
+                <img src="https://img.freepik.com/premium-photo/refreshing-latte-coffee-white-glass_842717-21583.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
             </div>
             
             {/* Card 4: Gorras */}
@@ -200,7 +200,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Headwear</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Gorras Urbanas.</h3>
                 </div>
-                <img src="" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
+                <img src="https://mentoria.japancase.com/wp-content/uploads/2024/05/jim-rickhards-gold.jpg" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
             </div>
 
             {/* Card 5: Setup */}
@@ -209,7 +209,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Setup</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Trabaja Mejor.</h3>
                 </div>
-                <img src="https://img.freepik.com/foto-gratis/vista-estilo-retro-vehiculo-tanque-combate-guerra_23-2151663663.jpg" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
+                <img src="https://img.freepik.com/fotos-premium/garrafa-roxa-magenta-em-um-fundo-magenta-design-limpo-e-minimalista_800563-2624.jpg" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
             </div>
 
         </div>
