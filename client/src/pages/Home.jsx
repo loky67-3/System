@@ -44,7 +44,7 @@ export default function Home() {
                <span>Ropa</span>
             </Link>
             <Link to="/store/phones" className="chapter-item">
-               <img src="https://cdn-icons-png.flaticon.com/512/644/644458.png" alt="Celulares" className="chapter-icon" />
+               <img src="https://media.istockphoto.com/id/2182945818/es/foto/beautiful-mid-adult-hispanic-female-in-yellow-jacket-hiking.webp?a=1&b=1&s=612x612&w=0&k=20&c=LX3fCyWSwUkYd9UPUmUGbSQhQ4wf1SashTFauYfapN8=" alt="Celulares" className="chapter-icon" />
                <span>Celulares</span>
             </Link>
             <Link to="/store/shoes" className="chapter-item">
@@ -97,7 +97,7 @@ export default function Home() {
 
             {/* Card 2: Phone */}
             <div className="round-card large" style={{background: '#f5f5f7'}}>
-                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ce7d5b?auto=format&fit=crop&w=1200&q=80" alt="Smartphone" />
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/012/648/677/small_2x/happy-young-people-group-have-fun-on-beach-free-photo.jpg" alt="Smartphone" />
                 <div className="round-content">
                     <span style={{fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#86868b'}}>Tecnología</span>
                     <h3 style={{color: '#1d1d1f'}}>Smartphones Pro.</h3>
@@ -191,7 +191,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#86868b', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Audio</span>
                     <h3 style={{fontSize: 24, color: '#fff'}}>Sonido Premium.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
+                <img src="https://img.freepik.com/fotos-premium/audifonos-modernos-blancos-aislados-sobre-fondo-blanco-diseno-elegante_1133159-819.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
             </div>
             
             {/* Card 4: Gorras */}
@@ -200,7 +200,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Headwear</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Gorras Urbanas.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1575428652377-a2697240dac5?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
+                <img src="" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
             </div>
 
             {/* Card 5: Setup */}
@@ -209,7 +209,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Setup</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Trabaja Mejor.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
+                <img src="https://img.freepik.com/foto-gratis/vista-estilo-retro-vehiculo-tanque-combate-guerra_23-2151663663.jpg" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
             </div>
 
         </div>
