@@ -87,7 +87,7 @@ export default function Home() {
             
             {/* Card 1: Streetwear */}
             <div className="round-card large" style={{background: '#000'}}>
-                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80" alt="Streetwear" style={{opacity: 0.8}} />
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80" alt="Streetwear" style={{opacity: 0.8}} />
                 <div className="round-content">
                     <span style={{fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#ccc'}}>Colección Urbana</span>
                     <h3 style={{color: '#fff'}}>Oversize.</h3>
@@ -97,7 +97,7 @@ export default function Home() {
 
             {/* Card 2: Phone */}
             <div className="round-card large" style={{background: '#f5f5f7'}}>
-                <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=1200&q=80" alt="Smartphone" />
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ce7d5b?auto=format&fit=crop&w=1200&q=80" alt="Smartphone" />
                 <div className="round-content">
                     <span style={{fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#86868b'}}>Tecnología</span>
                     <h3 style={{color: '#1d1d1f'}}>Smartphones Pro.</h3>
@@ -107,7 +107,7 @@ export default function Home() {
 
             {/* Card 3: Sneakers */}
             <div className="round-card large" style={{background: '#1d1d1f'}}>
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80" alt="Sneakers" style={{opacity: 0.9}} />
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=80" alt="Sneakers" style={{opacity: 0.9}} />
                 <div className="round-content">
                     <span style={{fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#86868b'}}>Calzado</span>
                     <h3 style={{color: '#fff'}}>Sneakers Air.</h3>
@@ -117,7 +117,7 @@ export default function Home() {
 
             {/* Card 4: Sunglasses */}
             <div className="round-card large" style={{background: '#fff'}}>
-                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281e960?auto=format&fit=crop&w=1200&q=80" alt="Gafas" />
+                <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1200&q=80" alt="Gafas" />
                 <div className="round-content">
                     <span style={{fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#86868b'}}>Verano</span>
                     <h3 style={{color: '#1d1d1f'}}>Gafas de Sol.</h3>
@@ -140,7 +140,7 @@ export default function Home() {
                     <h4 style={{fontSize: 32, marginBottom: 10}}>Compra con la ayuda de un Experto.</h4>
                     <p style={{fontSize: 17, color: '#1d1d1f'}}>Online o en nuestra tienda física.</p>
                  </div>
-                 <img src="https://media.licdn.com/dms/image/v2/D5610AQFBZ0NGS8jlFQ/image-shrink_1280/image-shrink_1280/0/1694793686241?e=2147483647&v=beta&t=61svPpKVwRjY-xZdKh4IAkU917oxmvFTK7QB6IYiowA" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', position: 'absolute', top: 0, left: 0, zIndex: 0, transform: 'scale(1)'}} alt="Specialist" />
+                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', position: 'absolute', top: 0, left: 0, zIndex: 0, transform: 'scale(1)'}} alt="Specialist" />
             </div>
             
             {/* Business */}
@@ -150,7 +150,7 @@ export default function Home() {
                     <h4 style={{fontSize: 32, marginBottom: 10}}>Logística Global.</h4>
                     <p style={{fontSize: 17, color: '#1d1d1f'}}>Llevamos tus compras a donde estés.</p>
                  </div>
-                 <img src="https://img1.wallspic.com/crops/4/0/1/2/2/122104/122104-carretera-semi_remolque_de_camion-transporte-exterior_del_automotor-el_transporte_de_mercancias-1920x1080.jpg" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', position: 'absolute', top: 0, left: 0, zIndex: 0, transform: 'scale(1)'}} alt="Business" />
+                 <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', position: 'absolute', top: 0, left: 0, zIndex: 0, transform: 'scale(1)'}} alt="Business" />
             </div>
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function Home() {
                     <h3 style={{fontSize: 24, color: '#fff'}}>Protección.</h3>
                     <p style={{color: '#a1a1a6'}}>Estilo para tu celular.</p>
                 </div>
-                <img src="https://images.unsplash.com/photo-1541876020-f5979929831d?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Fundas" />
+                <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Fundas" />
             </div>
 
             {/* Card 2: Relojes */}
@@ -182,7 +182,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Smartwatch</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Conectado siempre.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Smartwatch" />
+                <img src="https://images.unsplash.com/photo-1517502474097-f9b30659dadb?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Smartwatch" />
             </div>
 
             {/* Card 3: Audio */}
@@ -191,7 +191,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#86868b', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Audio</span>
                     <h3 style={{fontSize: 24, color: '#fff'}}>Sonido Premium.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9}} alt="Audio" />
             </div>
             
             {/* Card 4: Gorras */}
@@ -200,7 +200,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Headwear</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Gorras Urbanas.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89f?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
+                <img src="https://images.unsplash.com/photo-1575428652377-a2697240dac5?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="Gorras" />
             </div>
 
             {/* Card 5: Setup */}
@@ -209,7 +209,7 @@ export default function Home() {
                     <span style={{fontSize: 12, fontWeight: 700, color: '#1d1d1f', textTransform: 'uppercase', marginBottom: 5, display: 'block'}}>Setup</span>
                     <h3 style={{fontSize: 24, color: '#1d1d1f'}}>Trabaja Mejor.</h3>
                 </div>
-                <img src="https://images.unsplash.com/photo-1542393545-facac326b133?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
+                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="iPad Setup" />
             </div>
 
         </div>

@@ -1571,7 +1571,7 @@ body {
 .auth-login-visual {
   flex: 1; /* Ocupa espacio flexible */
   min-width: 380px; /* Ancho mínimo para que la imagen luzca */
-  background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
+  background-image: url('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=1200&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -1599,7 +1599,7 @@ body {
 /* --- Register Page Specifics --- */
 .auth-register-visual {
   flex-basis: 300px; /* Imagen lateral "chiquita" y elegante */
-  background-image: url('https://images.unsplash.com/photo-1550029402-226115b7c579?q=80&w=1000&auto=format&fit=crop');
+  background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1200&auto=format&fit=crop');
 
   background-size: cover;
   background-position: center;
