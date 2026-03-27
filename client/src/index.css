@@ -7,12 +7,13 @@
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: red; /* Fondo "Apple Off-White" premium */
+  background-color: black; /* Fondo "Apple Off-White" premium */
   font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1d1d1f;
+  color: #fff;
 }
+
 
 /* --- Apple Navbar Styles --- */
 .apple-navbar {
