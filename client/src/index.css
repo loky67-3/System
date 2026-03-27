@@ -811,7 +811,7 @@ body {
   padding: 0 20px;
   font-size: 17px;
   border: 1px solid #d2d2d7;
-  border-radius: 12px; /* Redondeado medio */
+  border-radius: 0; /* Redondeado medio */
   outline: none;
   background: #fff;
   color: #1d1d1f;
