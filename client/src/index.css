@@ -725,7 +725,6 @@ body {
   /* ESTILO APPLE ORIGINAL: Fondo blanco, Borde gris, Sin Sombra */
   background-color: #ffffff;
   border: none;
-  border-radius: 24px; /* Bordes más redondeados y suaves */
   backdrop-filter: none;
 }
 
