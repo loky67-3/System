@@ -726,7 +726,6 @@ body {
   background-color: #ffffff;
   border: none;
   border-radius: 24px; /* Bordes más redondeados y suaves */
-  box-shadow: 0 10px 40px rgba(0,0,0,0.06); /* Sombra difusa elegante */
   backdrop-filter: none;
 }
 
