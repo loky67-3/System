@@ -19,7 +19,7 @@ body {
   background-color: rgba(255, 255, 255, 0.8); /* Blanco y traslúcido */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  height: 48px;
+  height: 49px;
   display: flex;
   justify-content: center;
   align-items: center;
