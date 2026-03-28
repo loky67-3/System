@@ -389,7 +389,7 @@ body {
 
 /* Botón de flecha estilo Apple */
 .scroll-arrow {
-  position: relative;
+  position: absolute;
   top: 55%; /* Centrado respecto a las tarjetas */
   transform: translateY(-50%);
   width: 56px;
