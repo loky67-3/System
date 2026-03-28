@@ -879,7 +879,7 @@ body {
 
 /* --- Social Login Styles --- */
 .auth-divider {
-  display: flex;
+  display: gird;
   align-items: center;
   margin: 25px 0 20px;
   width: 100%;
