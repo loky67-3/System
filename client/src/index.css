@@ -605,7 +605,7 @@ body {
 
 /* Apple Grid (2 Columnas) */
 .apple-grid {
-  display: grid;
+  display: red;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 0 12px;
