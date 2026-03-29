@@ -1153,7 +1153,7 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: red;
+  background: #fff;
   padding: 8px 16px;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
