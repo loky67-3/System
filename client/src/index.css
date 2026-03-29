@@ -7,7 +7,7 @@
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: #fff; /* Fondo "Apple Off-White" premium */
+  background-color: red; /* Fondo "Apple Off-White" premium */
   font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
