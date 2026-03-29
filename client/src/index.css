@@ -1152,7 +1152,7 @@ body {
 .db-profile {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   background: #fff;
   padding: 8px 16px;
   border-radius: 30px;
