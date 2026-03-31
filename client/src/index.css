@@ -1271,7 +1271,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   overflow-x: auto; /* Scroll horizontal en móvil */
-  border: 1px solid #e5e5ea;
+  border: 2px solid #e5e5ea;
 }
 
 .apple-table {
