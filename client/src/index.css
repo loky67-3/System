@@ -1854,7 +1854,7 @@ body {
 
 .mobile-action-btn {
   /* flex: 1; Eliminado para que no ocupen todo el ancho */
-  min-width: 130px; /* Tamaño mínimo cómodo */
+  min-width: 120px; /* Tamaño mínimo cómodo */
   text-align: center;
   padding: 12px 24px;
   border-radius: 30px; /* Estilo Pastilla (Pill) más estilizado */
