@@ -10,8 +10,8 @@ body {
   background-color: #fff;
   /* Fondo HD abstracto y suave (clarita) que combina blanco y azul estilo Apple */
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)), 
-    url('https://wallpaperaccess.com/full/675154.jpg');
+    linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+    url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -223,12 +223,6 @@ body {
   .apple-grid {
     grid-template-columns: 1fr; /* 1 Columna en móvil */
   }
-  
-  /* Footer en móvil */
-  footer div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
 }
 
 /* --- Mega Menu --- */
@@ -308,6 +302,83 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* --- Modern Premium Footer --- */
+footer {
+  background: rgba(255, 255, 255, 0.4); /* Glassmorphism sobre el fondo HD */
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 60px 22px 30px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  color: #1d1d1f;
+  font-family: "SF Pro Text", sans-serif;
+  margin-top: 50px;
+}
+
+.footer-content {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columnas estándar Apple */
+  gap: 20px;
+  padding-bottom: 40px;
+}
+
+.footer-column h3 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1d1d1f;
+  letter-spacing: -0.01em;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 9px;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #424245;
+  font-size: 12px;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-column ul li a:hover {
+  color: #1d1d1f;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  font-size: 12px;
+  color: #86868b;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-legal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 /* --- Home Page Styles (Apple Style) --- */
