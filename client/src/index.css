@@ -799,48 +799,80 @@ footer {
 .auth-container {
   display: flex;
   justify-content: center;
-  align-items: center; /* Centrado verticalmente estilo Apple ID */
+  align-items: center;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #ffff; /* Gris sistema Apple */
+  background-color: #fbfbfd;
+  /* Fondo premium con sutiles luces de color estilo Apple */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 113, 227, 0.1) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 199, 190, 0.1) 0, transparent 50%);
   padding: 20px;
 }
 
-/* [AQUÍ ESTÁN LOS ESTILOS DE LOGIN] */
 .auth-card {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 460px; /* Ancho estándar de login Apple */
+  max-width: 440px;
   padding: 50px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  
-  /* ESTILO APPLE ORIGINAL: Fondo blanco, Borde gris, Sin Sombra */
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  animation: authCardEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes authCardEnter {
+  from { opacity: 0; transform: scale(0.96) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* Ajuste Responsive para Login */
 @media (max-width: 600px) {
   .auth-card {
-    background-color: #fff; 
+    border-radius: 38px 38px 0 0;
+    padding: 48px 24px;
+    max-width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0;
     border: none;
-    box-shadow: none;
-    padding: 30px 20px;
-    max-width: 100%;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+    background: #ffffff;
+    animation: slideUpSheet 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  .auth-card::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 5px;
+    background: #e5e5ea;
+    border-radius: 3px;
+  }
+
   .auth-container {
-    background-color: #ffffff; /* Fondo blanco completo estilo App nativa */
-    align-items: flex-start;
-    padding-top: 40px;
+    background-color: #f2f2f7;
+    align-items: flex-end;
+    padding: 0;
   }
+}
+
+@keyframes slideUpSheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 /* Floating Elements */
@@ -884,10 +916,10 @@ footer {
 }
 
 .auth-header h1 {
-  font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 32px;
+  font-family: "SF Pro Display", "SF Pro Text", sans-serif;
+  font-size: 34px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #1d1d1f;
   letter-spacing: -0.01em;
 }
@@ -933,12 +965,13 @@ footer {
   margin-top: 20px;
   background-color: #0071e3; /* Azul Sistema Apple */
   color: white;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 14px;
+  font-family: "SF Pro Text", sans-serif;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
 }
 
