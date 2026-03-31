@@ -821,21 +821,25 @@ footer {
   
   /* ESTILO APPLE ORIGINAL: Fondo blanco, Borde gris, Sin Sombra */
   background-color: #ffffff;
-  border: none;
-  backdrop-filter: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
 }
 
 /* Ajuste Responsive para Login */
 @media (max-width: 600px) {
   .auth-card {
-    background-color: transparent; /* En móvil se funde con el fondo */
+    background-color: #fff; 
+    border: none;
     box-shadow: none;
-    padding: 20px 0;
+    padding: 30px 20px;
+    max-width: 100%;
   }
   .auth-container {
     background-color: #ffffff; /* Fondo blanco completo estilo App nativa */
     align-items: flex-start;
-    padding-top: 60px;
+    padding-top: 40px;
   }
 }
 
@@ -904,21 +908,23 @@ footer {
 
 .auth-input {
   width: 100%;
-  height: 56px; /* Más alto para mejor toque en móvil */
-  padding: 0 20px;
-  font-size: 17px;
-  border: 1px solid #d2d2d7;
-  border-radius: 0; /* Redondeado medio */
+  height: 52px;
+  padding: 0 16px;
+  font-size: 16px;
+  border: 1.5px solid #e1e1e1; /* Borde estilo Microsoft/Google */
+  border-radius: 8px; /* Bordes redondeados modernos */
   outline: none;
-  background: #fff;
-  color: #1d1d1f;
-  transition: all 0.2s ease;
-  margin-bottom: 4px; /* Espacio extra si no hay gap en form */
+  background: #fbfbfb;
+  color: #323130;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 2px;
 }
 
 .auth-input:focus {
+  background: #fff;
   border-color: #0071e3; /* Azul Apple */
-  box-shadow: 0 0 0 4px rgba(0,113,227,0.15); /* Glow azul suave */
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+  transform: translateY(-1px);
 }
 
 .auth-button {
@@ -927,11 +933,13 @@ footer {
   margin-top: 20px;
   background-color: #0071e3; /* Azul Sistema Apple */
   color: white;
-  font-size: 17px;
-  font-weight: 500;
-  border: none;  /* Consistente con inputs */
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
 }
 
 .auth-button:hover {
