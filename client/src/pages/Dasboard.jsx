@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
@@ -18,6 +18,12 @@ import {
 export default function Dasboard() {
   const navigate = useNavigate();
   
+  // Cambiar el título de la pestaña dinámicamente
+  useEffect(() => {
+    const sectionName = sidebarItems.find(item => item.id === activeSidebar)?.label || 'Dashboard';
+    document.title = `System24 | ${sectionName}`;
+  }, [activeSidebar]);
+
   // --- Estados Generales ---
   const [activeSidebar, setActiveSidebar] = useState('notes'); // Controla la sección activa
   const [viewMode, setViewMode] = useState('kanban'); // 'kanban' | 'table'
