@@ -77,8 +77,8 @@ export default function Navbar() {
           <div className="nav-actions">
             <div className="nav-action-item"><FaSearch /></div>
             <div className="nav-action-item"><FaShoppingBag /></div>
-            <Link to="/login" className="nav-auth-link desktop-only" onMouseEnter={() => handleMouseEnter("Login")} onClick={closeDropdown}>Entrar</Link>
-            <Link to="/register" className="nav-auth-link desktop-only" onMouseEnter={() => handleMouseEnter("Register")} onClick={closeDropdown}>Registrarse</Link>
+            <Link to="/login" className="nav-auth-link login desktop-only" onMouseEnter={() => handleMouseEnter("Login")} onClick={closeDropdown}>Entrar</Link>
+            <Link to="/register" className="nav-auth-link register desktop-only" onMouseEnter={() => handleMouseEnter("Register")} onClick={closeDropdown}>Registrarse</Link>
             
             {/* Botón Hamburguesa (Móvil) */}
             <div className="nav-mobile-toggle" onClick={toggleMobileMenu}>
