@@ -799,15 +799,17 @@ footer {
 .auth-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #fbfbfd;
-  /* Fondo premium con sutiles luces de color estilo Apple */
+  /* Fondo unificado con gradiente de malla (Mesh Gradient) estilo iOS 18 */
+  background-color: #fff;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(0, 113, 227, 0.1) 0, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(0, 199, 190, 0.1) 0, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.12) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(94, 92, 230, 0.08) 0, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(255, 45, 85, 0.05) 0, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(0, 199, 190, 0.08) 0, transparent 50%);
   padding: 20px;
 }
 
@@ -821,12 +823,13 @@ footer {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 32px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  /* Glassmorphism más profundo y limpio */
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 40px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   animation: authCardEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -838,16 +841,14 @@ footer {
 /* Ajuste Responsive para Login */
 @media (max-width: 600px) {
   .auth-card {
-    border-radius: 38px 38px 0 0;
-    padding: 48px 24px;
+    border-radius: 42px 42px 0 0;
+    padding: 50px 28px;
     max-width: 100vw;
     position: fixed;
     bottom: 0;
     left: 0;
     margin: 0;
-    border: none;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.9);
     animation: slideUpSheet 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -864,9 +865,10 @@ footer {
   }
 
   .auth-container {
-    background-color: #f2f2f7;
+    background-color: #fff;
     align-items: flex-end;
     padding: 0;
+    background-image: none; /* Simplificado en móvil para rendimiento */
   }
 }
 
@@ -888,17 +890,23 @@ footer {
 
 .floating-icon {
   position: absolute;
-  width: 300px;
-  height: 300px;
   object-fit: contain;
-  opacity: 0.8;
-  animation: floatAnimation 10s ease-in-out infinite alternate;
+  opacity: 0.15; /* Sutil para no distraer */
+  filter: grayscale(100%); /* Look minimalista de empresas */
+  animation: floatAnimation 20s ease-in-out infinite alternate;
 }
 
-.icon-1 { top: 10%; left: 15%; transform: rotate(-15deg); width: 250px; }
-.icon-2 { bottom: 15%; right: 10%; transform: rotate(10deg); width: 350px; }
-.icon-3 { top: 15%; right: 20%; transform: rotate(25deg) scale(0.8); width: 200px; filter: blur(4px); }
-.icon-4 { bottom: 10%; left: 10%; transform: rotate(-10deg); width: 280px; filter: blur(5px); }
+.icon-1 { top: 5%; left: 5%; width: 120px; animation-duration: 25s; }
+.icon-2 { top: 60%; right: 5%; width: 150px; animation-duration: 30s; }
+.icon-3 { top: 10%; right: 15%; width: 80px; filter: blur(2px); opacity: 0.1; }
+.icon-4 { bottom: 5%; left: 8%; width: 140px; animation-duration: 22s; }
+.icon-5 { top: 40%; left: -5%; width: 100px; opacity: 0.05; }
+.icon-6 { bottom: 30%; right: -2%; width: 110px; opacity: 0.08; filter: blur(1px); }
+
+/* En responsivo ocultamos iconos grandes para limpiar la vista */
+@media (max-width: 600px) {
+  .floating-icon { display: none; }
+}
 
 @keyframes floatAnimation {
   0% { transform: translateY(0) rotate(0deg); }
@@ -940,23 +948,23 @@ footer {
 
 .auth-input {
   width: 100%;
-  height: 52px;
-  padding: 0 16px;
-  font-size: 16px;
-  border: 1.5px solid #e1e1e1; /* Borde estilo Microsoft/Google */
-  border-radius: 8px; /* Bordes redondeados modernos */
+  height: 56px;
+  padding: 0 20px;
+  font-size: 17px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
   outline: none;
-  background: #fbfbfb;
-  color: #323130;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-bottom: 2px;
+  background: rgba(0, 0, 0, 0.03);
+  color: #1d1d1f;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: "SF Pro Text", sans-serif;
 }
 
 .auth-input:focus {
-  background: #fff;
-  border-color: #0071e3; /* Azul Apple */
-  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
-  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: rgba(0, 113, 227, 0.3);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.08), 0 10px 20px rgba(0,0,0,0.04);
+  transform: scale(1.01);
 }
 
 .auth-button {
