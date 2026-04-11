@@ -927,8 +927,8 @@ footer {
   /* Variante Display para títulos de gran tamaño */
   font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 34px;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-weight: 600;
+  margin-bottom: 6px;
   color: #1d1d1f;
   letter-spacing: -0.022em; /* Kerning específico de Apple para títulos */
 }
