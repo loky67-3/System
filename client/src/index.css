@@ -1501,7 +1501,7 @@ footer {
 
 .apple-field {
   width: 100%;
-  padding: 14px 18px; /* Inputs más cómodos */
+  padding: 13px 18px; /* Inputs más cómodos */
   border-radius: 10px;
   border: 1px solid #d2d2d7;
   background: #fff;
@@ -1676,7 +1676,7 @@ footer {
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
-  border: 2px solid #e5e5ea;
+  border: 1px solid #e5e5ea;
 }
 
 .file-card:hover {
