@@ -867,7 +867,7 @@ footer {
   .auth-container {
     background-color: #fff;
     align-items: flex-end;
-    padding: 20px;
+    padding: 0;
     background-image: none; /* Simplificado en móvil para rendimiento */
   }
 }
